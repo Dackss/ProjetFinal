@@ -11,7 +11,11 @@
 
 typedef struct{
     Person *persons;
-    int size;
+    int size;        // Nombre actuel de personnes dans la population
+    int capacity;    // Taille maximale du tableau
 } Population;
+
+void insert(Population * p, int key, Person *data);
+void linkPopulation(Population *p);
 
 #endif //PROJETFINAL_POPULATION_H
