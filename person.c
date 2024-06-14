@@ -42,7 +42,6 @@ Person* initPerson(char* csvline) {
     p->p_father = NULL;
     p->p_mother = NULL;
     p->p_spouse = NULL;
-    p->children = NULL;
     p->num_children = 0;
 
     return p;

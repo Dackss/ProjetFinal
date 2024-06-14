@@ -22,3 +22,16 @@ void insert(Population * p, int key, Person *data) {
     data->id = key;
     p->persons[p->size++] = *data;
 }
+
+void linkPopulation(Population* p) {
+    for (int i = 0; i < p->size; i++) {
+        //p->persons[i].children = malloc(sizeof(Person*));
+        Person *current = &p->persons[i];
+        if(&p->persons[current->father_id] != NULL) {
+            (&p->persons[current->id])->p_father = (struct person *) &p->persons[current->father_id];
+        }
+        if(&p->persons[current->mother_id] != NULL) {
+            (&p->persons[current->id])->p_mother = (struct person *) &p->persons[current->mother_id];
+        }
+    }
+}

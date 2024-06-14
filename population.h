@@ -12,12 +12,13 @@
 #define CAPACITY 41
 
 typedef struct{
-    Person *persons;
+    Person* persons;
     int size;        // Nombre actuel de personnes dans la population
     int capacity;    // Taille maximale du tableau
 } Population;
 
 void insert(Population * p, int key, Person *data);
 void linkPopulation(Population *p);
+void createTree(Person * person, Person *tab);
 
 #endif //PROJETFINAL_POPULATION_H
