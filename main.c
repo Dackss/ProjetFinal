@@ -4,8 +4,9 @@
 
 
 #include <stdio.h>
+#include "user_interface.h"
 
-int main(void) {
-    printf("Hello, World!\n");
+int main() {
+    start();
     return 0;
 }

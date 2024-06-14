@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define CAPACITY 41
+
 typedef struct{
     Person *persons;
     int size;        // Nombre actuel de personnes dans la population
