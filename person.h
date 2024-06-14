@@ -5,6 +5,9 @@
 #ifndef PROJETFINAL_PERSON_H
 #define PROJETFINAL_PERSON_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef struct {
     int id;
     int father_id;
