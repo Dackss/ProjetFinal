@@ -4,17 +4,20 @@ project(ProjetFinal C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(ProjetFinal main.c
-        html_exporter.c
-        html_exporter.c
-        html_exporter.h
-        people_manager.c
-        people_manager.h
-        people_manager.h
-        csv_reader.c
-        csv_reader.h
-        csv_reader.h
-        advanced_functions.c
-        advanced_functions.h
-        advanced_functions.h
+        htmlexport.c
+        htmlexport.c
+        htmlexport.h
+        person.c
+        person.h
+        person.h
+        filemanager.c
+        filemanager.h
+        filemanager.h
+        population.c
+        population.h
+        population.h
         user_interface.c
-        user_interface.h)
+        user_interface.h
+        advanced.c
+        advanced.h
+        advanced.h)

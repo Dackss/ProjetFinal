@@ -1,8 +1,0 @@
-//
-// Created by Thomas & Quentin on 14/06/2024.
-//
-
-#ifndef PROJETFINAL_HTML_EXPORTER_H
-#define PROJETFINAL_HTML_EXPORTER_H
-
-#endif //PROJETFINAL_HTML_EXPORTER_H

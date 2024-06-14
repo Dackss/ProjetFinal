@@ -1,8 +1,0 @@
-//
-// Created by Thomas & Quentin on 14/06/2024.
-//
-
-#ifndef PROJETFINAL_PEOPLE_MANAGER_H
-#define PROJETFINAL_PEOPLE_MANAGER_H
-
-#endif //PROJETFINAL_PEOPLE_MANAGER_H
