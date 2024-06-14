@@ -1,0 +1,23 @@
+body{
+    background-color: green;
+}
+#business{
+    border: 2px solid black;
+    font-size: 50px;
+}
+#familly{
+    border: 2px solid black;
+    font-size: 50px;
+}
+#top{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1550px;
+}
+#root{
+    border: 2px solid black;
+    font-size: 50px;
+    text-align: center;
+}
+
+#node

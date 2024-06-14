@@ -6,6 +6,6 @@
 
 Person * initPerson(char *csvline){
        Person *p = (Person*)malloc(sizeof(Person));
-       
+
 
 }
