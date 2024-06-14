@@ -5,4 +5,5 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(ProjetFinal main.c
         html_exporter.c
-        html_exporter.c)
+        html_exporter.c
+        html_exporter.h)
