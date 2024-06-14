@@ -3,3 +3,7 @@
 //
 
 #include "user_interface.h"
+
+void start() {
+
+}
