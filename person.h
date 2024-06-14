@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
+typedef struct person {
     int id;
     int father_id;
     int mother_id;
