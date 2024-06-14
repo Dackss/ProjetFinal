@@ -18,7 +18,8 @@ typedef struct{
 } Population;
 
 void insert(Population * p, int key, Person *data);
-void linkPopulation(Population *p);
+void addChild(Person *parent, Person *child);
 void createTree(Person *person, Population *population);
+void linkPopulation(Population *p);
 
 #endif //PROJETFINAL_POPULATION_H

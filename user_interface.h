@@ -8,6 +8,7 @@
 #include "population.h"
 #include "filemanager.h"
 
+void printPersonDetails(Person *person);
 void start();
 
 #endif //PROJETFINAL_USER_INTERFACE_H
