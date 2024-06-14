@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_CHILDREN 10
+
 typedef struct person {
     int id;
     int father_id;
@@ -22,6 +24,7 @@ typedef struct person {
     struct person *p_spouse; // Pointeur vers le conjoint
     struct person **children; // Tableau de pointeurs vers les enfants
     int num_children; // Nombre d'enfants
+    int max_children; // Nombre maximal d'enfants
 } Person;
 
 Person * initPerson(char *csvline);

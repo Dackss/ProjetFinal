@@ -23,15 +23,47 @@ void insert(Population * p, int key, Person *data) {
     p->persons[p->size++] = *data;
 }
 
-void linkPopulation(Population* p) {
-    for (int i = 0; i < p->size; i++) {
-        p->persons[i].children = malloc(sizeof(Person*));
-        Person *current = &p->persons[i];
-        if(&p->persons[current->father_id] != NULL) {
-            (&p->persons[current->id])->p_father = (struct person *) &p->persons[current->father_id];
+// Fonction pour ajouter un enfant au parent
+void addChild(Person *parent, Person *child) {
+    if (parent->num_children < parent->max_children) {
+        parent->children[parent->num_children++] = child;
+    } else {
+        // Gérer le cas où le nombre d'enfants dépasse la capacité initiale
+        // Pour simplifier, nous ne faisons rien ici, mais dans un cas réel,
+        // il pourrait être nécessaire d'agrandir le tableau ou de gérer autrement.
+    }
+}
+
+// Fonction récursive pour créer les liens parentaux et incrémenter num_children
+void createTree(Person *person, Population *population) {
+    if (person->father_id != 0 && person->p_father == NULL) {
+        // Trouver et assigner le père
+        for (int j = 0; j < population->size; j++) {
+            if (population->persons[j].id == person->father_id) {
+                person->p_father = &population->persons[j];
+                addChild(person->p_father, person);
+                createTree(person->p_father, population);
+                break;
+            }
         }
-        if(&p->persons[current->mother_id] != NULL) {
-            (&p->persons[current->id])->p_mother = (struct person *) &p->persons[current->mother_id];
+    }
+
+    if (person->mother_id != 0 && person->p_mother == NULL) {
+        // Trouver et assigner la mère
+        for (int j = 0; j < population->size; j++) {
+            if (population->persons[j].id == person->mother_id) {
+                person->p_mother = &population->persons[j];
+                addChild(person->p_mother, person);
+                createTree(person->p_mother, population);
+                break;
+            }
         }
+    }
+}
+
+// Fonction pour lier toute la population
+void linkPopulation(Population *population) {
+    for (int i = 0; i < population->size; i++) {
+        createTree(&population->persons[i], population);
     }
 }

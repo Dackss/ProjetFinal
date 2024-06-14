@@ -21,7 +21,14 @@ Population readCSV(const char *filename) {
         insert(&population, key, new_person);
         free(new_person);
     }
-
+    for (int i = 0; i < population.size; i++) {
+        population.persons[i].p_father = NULL;
+        population.persons[i].p_mother = NULL;
+        population.persons[i].p_spouse = NULL;
+        population.persons[i].children = malloc(MAX_CHILDREN * sizeof(Person *));
+        population.persons[i].num_children = 0;
+        population.persons[i].max_children = MAX_CHILDREN;
+    }
     fclose(file);
     return population;
 }
