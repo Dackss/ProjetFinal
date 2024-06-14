@@ -1,5 +1,5 @@
 //
-// Created by Quentino on 14/06/2024.
+// Created by Thomas & Quentin on 14/06/2024.
 //
 
 #ifndef PROJETFINAL_HTML_EXPORTER_H
