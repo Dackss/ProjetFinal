@@ -1,0 +1,138 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('bg.png') no-repeat center center/cover;
+    filter: blur(3px); /* Ajout d'un flou à la couche verte */
+    z-index: -2; /* Pour s'assurer que le background est derrière le filtre */
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 128, 0, 0.3); /* Couche verte semi-transparente */
+    z-index: -1; /* Pour s'assurer que le filtre est derrière le contenu */
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    padding: 1rem 2rem; /* Ajout de padding pour plus d'espacement */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box; /* Assure que le padding est inclus dans la largeur */
+    z-index: 1;
+}
+
+.header-left, .header-right {
+    flex: 1;
+}
+
+.header-left h1, .header-right h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.header-left {
+    text-align: left;
+}
+
+.header-right {
+    text-align: right;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+#tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.generation {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0; /* Augmentation de l'espace entre les générations */
+    width: 100%;
+}
+
+.member {
+    text-align: center;
+    position: relative;
+    margin: 0 2rem; /* Augmentation de l'espace entre les membres */
+}
+
+.member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    object-fit: cover; /* Rogner l'image pour qu'elle couvre l'espace sans se déformer */
+    object-position: center; /* Centrer l'image rognée */
+}
+
+.member p {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.connection::after {
+    content: '';
+    position: absolute;
+    border-left: 2px solid #fff;
+    height: 20px;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+}
+
+.generation:not(:first-child) .member::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background-color: #fff;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.generation:not(:first-child) .member::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}

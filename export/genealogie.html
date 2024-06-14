@@ -1,32 +1,62 @@
 <!DOCTYPE html>
-<html>
-    <head lang="fr">
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="geneaogie.css">
-        <title>Généalogie</title>
-
-    </head>
-    <body>
-    <div id="top">
-        <div id="business"> familly founder </div>
-        <div id="familly"> familly</div>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="genealogie.css">
+    <title>Arbre Généalogique</title>
+</head>
+<body>
+<header>
+    <div class="header-left">
+        <h1>Nom de l'Entreprise</h1>
     </div>
-<br>
-    <div id="tree">
-        <div class="root1"> Grand père </div>
-
-        <div id="ff">
-            <div class="root2"> Fils </div>
-            <div class="root3"> Fille </div>
-        </div>
-
-        <div id="pff">
-            <div class="root4"> Petit fils </div>
-            <div class="root5"> Petit Fils </div>
-            <div class="root4"> Petit fils </div>
-            <div class="root5"> Petit Fils </div>
-        </div>
-
+    <div class="header-right">
+        <h1>Nom de la Famille</h1>
     </div>
-    </body>
+</header>
+<main>
+    <section id="tree">
+        <!-- Génération 1 -->
+        <div class="generation">
+            <div class="member">
+                <img src="img.jpg" alt="Personne 1">
+                <p>Personne 1</p>
+                <div class="connection"></div>
+            </div>
+        </div>
+        <!-- Génération 2 -->
+        <div class="generation">
+            <div class="member">
+                <img src="img.jpg" alt="Père">
+                <p>Père</p>
+                <div class="connection"></div>
+            </div>
+            <div class="member">
+                <img src="img.jpg" alt="Mère">
+                <p>Mère</p>
+                <div class="connection"></div>
+            </div>
+        </div>
+        <!-- Génération 3 -->
+        <div class="generation">
+            <div class="member">
+                <img src="img.jpg" alt="Grand-Père Paternel">
+                <p>Grand-Père Paternel</p>
+            </div>
+            <div class="member">
+                <img src="img.jpg" alt="Grand-Mère Paternelle">
+                <p>Grand-Mère Paternelle</p>
+            </div>
+            <div class="member">
+                <img src="img.jpg" alt="Grand-Père Maternel">
+                <p>Grand-Père Maternel</p>
+            </div>
+            <div class="member">
+                <img src="img.jpg" alt="Grand-Mère Maternelle">
+                <p>Grand-Mère Maternelle</p>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
 </html>
