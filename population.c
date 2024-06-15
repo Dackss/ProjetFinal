@@ -36,6 +36,8 @@ void addChild(Person *parent, Person *child) {
 
 // Fonction récursive pour créer les liens parentaux et incrémenter num_children
 void createTree(Person *person, Population *population) {
+    Person *unknown = &population->persons[0]; // Personne inconnue avec ID 0
+
     if (person->father_id != 0 && person->p_father == NULL) {
         // Trouver et assigner le père
         for (int j = 0; j < population->size; j++) {
@@ -45,6 +47,9 @@ void createTree(Person *person, Population *population) {
                 createTree(person->p_father, population);
                 break;
             }
+        }
+        if (person->p_father == NULL) {
+            person->p_father = unknown;
         }
     }
 
@@ -58,6 +63,15 @@ void createTree(Person *person, Population *population) {
                 break;
             }
         }
+        if (person->p_mother == NULL) {
+            person->p_mother = unknown;
+        }
+    }
+
+    if (person->p_mother != NULL && person->p_father != NULL) {
+        // Assigner les conjoints
+        person->p_father->p_spouse = person->p_mother;
+        person->p_mother->p_spouse = person->p_father;
     }
 }
 
@@ -65,5 +79,20 @@ void createTree(Person *person, Population *population) {
 void linkPopulation(Population *population) {
     for (int i = 0; i < population->size; i++) {
         createTree(&population->persons[i], population);
+    }
+
+    // Initialiser les conjoints non trouvés à la personne "inconnue"
+    Person *unknown = &population->persons[0];
+    for (int i = 0; i < population->size; i++) {
+        Person *person = &population->persons[i];
+        if (person->p_father == NULL) {
+            person->p_father = unknown;
+        }
+        if (person->p_mother == NULL) {
+            person->p_mother = unknown;
+        }
+        if (person->p_spouse == NULL) {
+            person->p_spouse = unknown;
+        }
     }
 }
