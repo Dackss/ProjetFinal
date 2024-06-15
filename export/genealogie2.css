@@ -22,7 +22,7 @@ body {
     background-color: black;
     width: 100%;
     padding: 1rem 2rem;
-    
+
 }
 .home{
     width: 100px;
@@ -57,8 +57,8 @@ body {
     flex-direction: row;
     justify-content: space-around;
     column-gap: 40em;
-    justify-content: center;
     align-items: center;
+    padding: 2.5%;
 }
 .person{
     border-radius: 10%;
@@ -70,6 +70,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 2.5%;
 }
 .texte{
     height: 400px;
