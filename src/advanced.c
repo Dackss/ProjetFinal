@@ -1,4 +1,4 @@
-#include "advanced.h"
+#include "../include/advanced.h"
 
 Person** getSiblings(Person* person, int* count) {
     Person** siblings = malloc(CAPACITY * sizeof(Person *));

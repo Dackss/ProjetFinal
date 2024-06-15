@@ -2,7 +2,7 @@
 // Created by Thomas & Quentin on 14/06/2024.
 //
 
-#include "population.h"
+#include "../include/population.h"
 
 void insert(Population * p, int key, Person *data) {
     if (p->size >= p->capacity) {

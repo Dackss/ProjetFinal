@@ -1,19 +1,40 @@
-//
-// Created by Thomas & Quentin on 14/06/2024.
-//
+#include <stdio.h>
+#include <stdlib.h>
+#include "menu.h"
+#include "advanced.h"
 
-#include "user_interface.h"
-#include <math.h>
-
-void start() {
+void startMenu() {
     Population population = readCSV("../resources/200.csv");
     linkPopulation(&population);
 
-    // Test de la fonction printPersonDetails qui inclut le test pour getSiblings
-    for (int i = 0; i < population.size; i++) {
-        printPersonDetails(&population.persons[i]);
-    }
-    testAncestorsPersons(&population);
+    int choice;
+    do {
+        printf("\033[H\033[J"); // Clear the terminal
+        // L'en-tête est maintenant imprimée dans le script bash
+        printf("Menu:\n");
+        printf("1. Afficher les détails d'une personne\n");
+        printf("2. Quitter\n");
+        printf("Entrez votre choix: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                for (int i = 0; i < population.size; i++) {
+                    printPersonDetails(&population.persons[i]);
+                }
+                printf("Appuyez sur une touche pour continuer...\n");
+                getchar(); getchar(); // Attendre une entrée utilisateur
+                break;
+            case 2:
+                printf("Au revoir!\n");
+                break;
+            default:
+                printf("Choix invalide, veuillez réessayer.\n");
+                printf("Appuyez sur une touche pour continuer...\n");
+                getchar(); getchar(); // Attendre une entrée utilisateur
+        }
+    } while (choice != 2);
+
     free(population.persons);
 }
 
@@ -22,8 +43,8 @@ int isPerson(Person *person) {
 }
 
 char *getFullName(Person *person) {
-    static char name[100]; // adjust size if necessary
-    if(isPerson(person)) {
+    static char name[100]; // ajuster la taille si nécessaire
+    if (isPerson(person)) {
         sprintf(name, "%s %s", person->firstname, person->lastname);
         return name;
     } else {
@@ -32,14 +53,15 @@ char *getFullName(Person *person) {
 }
 
 char *getSpouseName(Person *person) {
-    static char spouseName[100]; // adjust size if necessary
-    if(isPerson(person->p_spouse)) {
+    static char spouseName[100]; // ajuster la taille si nécessaire
+    if (isPerson(person->p_spouse)) {
         sprintf(spouseName, "%s %s", person->p_spouse->firstname, person->p_spouse->lastname);
         return spouseName;
     } else {
         return "Aucun";
     }
 }
+
 void printChildren(int num_children, Person *person) {
     printf("Nombre d'enfants: %d\n", num_children);
 
@@ -58,31 +80,6 @@ void printSiblings(Person *person, int *numSiblings) {
         free(siblings);
     } else printf("  - Aucun\n");
 }
-
-void testAncestorsPersons(Population *population) {
-    if (population->size > 0) {
-        Person *person = &population->persons[1];
-        int generations = 2;
-        Person **ancestors = ancestorsPersons(*population, person);
-
-        if (ancestors != NULL) {
-            printf("Test ancestorsPersons:\n");
-            for (int i = 1; i < pow(2, generations + 1) - 1; i++) {
-                if (ancestors[i] != NULL) {
-                    printf("Ancestor %d: %s %s\n", i, ancestors[i]->firstname, ancestors[i]->lastname);
-                } else {
-                    printf("Ancestor %d: NULL\n", i);
-                }
-            }
-            free(ancestors);
-        } else {
-            printf("ancestorsPersons returned NULL\n");
-        }
-    } else {
-        printf("Population is empty\n");
-    }
-}
-
 
 void printPersonDetails(Person *person) {
     printf("ID: %d\n", person->id);

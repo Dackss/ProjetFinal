@@ -2,7 +2,7 @@
 // Created by dacks on 14/06/2024.
 //
 
-#include "filemanager.h"
+#include "../include/filemanager.h"
 
 Population readCSV(const char *filename) {
     FILE *file = fopen(filename, "r");

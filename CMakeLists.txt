@@ -3,23 +3,19 @@ project(ProjetFinal C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(ProjetFinal main.c
-        htmlexport.c
-        htmlexport.c
-        htmlexport.h
-        person.c
-        person.h
-        person.h
-        filemanager.c
-        filemanager.h
-        filemanager.h
-        population.c
-        population.h
-        population.h
-        user_interface.c
-        user_interface.h
-        advanced.c
-        advanced.h
-        advanced.h)
+include_directories(include)
 
+# All source files are gathered into one variable
+set(PROJET_FINAL_SRC
+        main.c
+        src/htmlexport.c
+        src/person.c
+        src/filemanager.c
+        src/population.c
+        src/menu.c
+        src/advanced.c
+)
+
+# Using the variable containing source files
+add_executable(ProjetFinal ${PROJET_FINAL_SRC})
 target_link_libraries(ProjetFinal m)
