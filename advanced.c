@@ -1,7 +1,7 @@
 #include "advanced.h"
 
 Person** getSiblings(Person* person, int* count) {
-    Person** siblings = malloc(10 * sizeof(Person *));
+    Person** siblings = malloc(CAPACITY * sizeof(Person *));
     *count = 0;
 
     // Check siblings from father side
@@ -38,4 +38,35 @@ Person** getSiblings(Person* person, int* count) {
     }
 
     return siblings;
+}
+
+Person** ancestorsPersons(Population population, Person *person) {
+    // Calculate the size of the array based on the number of generations
+    int array_size = pow(2, GENERATIONS + 1) - 1;
+
+    // Allocate memory for the array
+    Person **ancestors = malloc(array_size * sizeof(Person*));
+
+    // Check if the memory was allocated successfully
+    if (ancestors == NULL) {
+        printf("Memory allocation failed\n");
+        return NULL;
+    }
+
+    // Set the first index to the person
+    ancestors[0] = person;
+
+    // Loop through the array and set the parents
+    for (int i = 0; i < array_size / 2; i++) {
+        if (ancestors[i] != NULL) {
+            ancestors[2 * i + 1] = ancestors[i]->p_father;
+            ancestors[2 * i + 2] = ancestors[i]->p_mother;
+        }
+        else {
+            ancestors[2 * i + 1] = NULL;  // Unknown person
+            ancestors[2 * i + 2] = NULL;  // Unknown person
+        }
+    }
+
+    return ancestors;
 }

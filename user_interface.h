@@ -15,6 +15,7 @@
 #include "person.h"
 
 void printPersonDetails(Person *person);
+void testAncestorsPersons(Population *population);
 void start();
 
 #endif //PROJETFINAL_USER_INTERFACE_H

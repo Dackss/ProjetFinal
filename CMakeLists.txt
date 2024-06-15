@@ -21,3 +21,5 @@ add_executable(ProjetFinal main.c
         advanced.c
         advanced.h
         advanced.h)
+
+target_link_libraries(ProjetFinal m)

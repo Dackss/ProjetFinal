@@ -14,8 +14,10 @@
 #include <math.h>
 
 
+#define GENERATIONS 2
+
 Person** getSiblings(Person* person, int* count);
 
-Person **ancestorsPersons(Population *population, Person *person);
+Person **ancestorsPersons(Population population, Person *person);
 
 #endif //PROJETFINAL_ADVANCED_H

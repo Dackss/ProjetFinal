@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CAPACITY 41
+#define CAPACITY 201
 
 typedef struct{
     Person* persons;

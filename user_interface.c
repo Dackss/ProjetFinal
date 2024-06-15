@@ -3,15 +3,17 @@
 //
 
 #include "user_interface.h"
+#include <math.h>
 
 void start() {
-    Population population = readCSV("../resources/40.csv");
+    Population population = readCSV("../resources/200.csv");
     linkPopulation(&population);
 
     // Test de la fonction printPersonDetails qui inclut le test pour getSiblings
     for (int i = 0; i < population.size; i++) {
         printPersonDetails(&population.persons[i]);
     }
+    testAncestorsPersons(&population);
     free(population.persons);
 }
 
@@ -57,13 +59,37 @@ void printSiblings(Person *person, int *numSiblings) {
     } else printf("  - Aucun\n");
 }
 
+void testAncestorsPersons(Population *population) {
+    if (population->size > 0) {
+        Person *person = &population->persons[1];
+        int generations = 2;
+        Person **ancestors = ancestorsPersons(*population, person);
+
+        if (ancestors != NULL) {
+            printf("Test ancestorsPersons:\n");
+            for (int i = 1; i < pow(2, generations + 1) - 1; i++) {
+                if (ancestors[i] != NULL) {
+                    printf("Ancestor %d: %s %s\n", i, ancestors[i]->firstname, ancestors[i]->lastname);
+                } else {
+                    printf("Ancestor %d: NULL\n", i);
+                }
+            }
+            free(ancestors);
+        } else {
+            printf("ancestorsPersons returned NULL\n");
+        }
+    } else {
+        printf("Population is empty\n");
+    }
+}
+
+
 void printPersonDetails(Person *person) {
     printf("ID: %d\n", person->id);
     printf("Nom: %s\n", person->lastname);
     printf("Prénom: %s\n", person->firstname);
     printf("Date de naissance: %02d/%02d/%04d\n", person->birthday, person->birthmonth, person->birthyear);
-    printf("Code postal: %s\n", person->region_naissance);
-
+    printf("Region naissance: %s\n", person->region_naissance);
     printf("Père: %s\n", getFullName(person->p_father));
     printf("Mère: %s\n", getFullName(person->p_mother));
     printf("Conjoint: %s\n", getSpouseName(person));
