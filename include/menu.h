@@ -14,7 +14,7 @@
 #include "advanced.h"
 #include "person.h"
 
-void startMenu();
+void printAncestors(Population population, Person *person);
 void printPersonDetails(Person *person);
 void printChildren(int num_children, Person *person);
 void printSiblings(Person *person, int *numSiblings);

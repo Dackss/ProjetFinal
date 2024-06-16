@@ -3,41 +3,6 @@
 #include "menu.h"
 #include "advanced.h"
 
-void startMenu() {
-    Population population = readCSV("../resources/200.csv");
-    linkPopulation(&population);
-
-    int choice;
-    do {
-        printf("\033[H\033[J"); // Clear the terminal
-        // L'en-tête est maintenant imprimée dans le script bash
-        printf("Menu:\n");
-        printf("1. Afficher les détails d'une personne\n");
-        printf("2. Quitter\n");
-        printf("Entrez votre choix: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-            case 1:
-                for (int i = 0; i < population.size; i++) {
-                    printPersonDetails(&population.persons[i]);
-                }
-                printf("Appuyez sur une touche pour continuer...\n");
-                getchar(); getchar(); // Attendre une entrée utilisateur
-                break;
-            case 2:
-                printf("Au revoir!\n");
-                break;
-            default:
-                printf("Choix invalide, veuillez réessayer.\n");
-                printf("Appuyez sur une touche pour continuer...\n");
-                getchar(); getchar(); // Attendre une entrée utilisateur
-        }
-    } while (choice != 2);
-
-    free(population.persons);
-}
-
 int isPerson(Person *person) {
     return person && person->id != 0;
 }
@@ -79,6 +44,22 @@ void printSiblings(Person *person, int *numSiblings) {
         }
         free(siblings);
     } else printf("  - Aucun\n");
+}
+
+void printAncestors(Population population, Person *person) {
+    Person **ancestors = ancestorsPersons(population, person);
+    if (ancestors != NULL) {
+        for (int i = 0; i < pow(2, GENERATIONS + 1) - 1; i++) {
+            if (ancestors[i] != NULL) {
+                if (ancestors[i]->id == 0) {
+                    printf("  - Inconnu\n");
+                } else {
+                    printf("  - %s %s\n", ancestors[i]->firstname, ancestors[i]->lastname);
+                }
+            }
+        }
+        free(ancestors);
+    }
 }
 
 void printPersonDetails(Person *person) {

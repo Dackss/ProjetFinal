@@ -50,5 +50,4 @@ int  treeToTableau(Population *p, Person *root, Person **tableau, int index){
 
 void exportTableau_HTML(Population *p, const char *filename){
 
-    }
 }
