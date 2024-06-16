@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# ----------------------------------
+# Projet Final - Généalogie
+# Par: Thomas & Quentin
+# ----------------------------------
+
 # This function prints a header for the script.
 # It uses escape codes to color the text green with the option echo -e.
 print_header() {

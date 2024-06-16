@@ -1,3 +1,7 @@
+//
+// Created by Thomas & Quentin on 14/06/2024.
+//
+
 #include "../include/advanced.h"
 
 Person** getSiblings(Person* person, int* count) {
