@@ -21,5 +21,6 @@ void printSiblings(Person *person, int *numSiblings);
 int isPerson(Person *person);
 char *getFullName(Person *person);
 char *getSpouseName(Person *person);
+void printAncestors(Population population, Person *person);
 
 #endif //PROJETFINAL_MENU_H

@@ -3,7 +3,7 @@
 #include "menu.h"
 #include "advanced.h"
 
-void startMenu() {
+/*void startMenu() {
     Population population = readCSV("../resources/200.csv");
     linkPopulation(&population);
 
@@ -36,7 +36,7 @@ void startMenu() {
     } while (choice != 2);
 
     free(population.persons);
-}
+}*/
 
 int isPerson(Person *person) {
     return person && person->id != 0;
@@ -81,6 +81,23 @@ void printSiblings(Person *person, int *numSiblings) {
     } else printf("  - Aucun\n");
 }
 
+
+void printAncestors(Population population, Person *person) {
+    Person **ancestors = ancestorsPersons(population, person);
+    if (ancestors != NULL) {
+        for (int i = 0; i < pow(2, GENERATIONS + 1) - 1; i++) {
+            if (ancestors[i] != NULL) {
+                if (ancestors[i]->id == 0) {
+                    printf("  - Inconnu\n");
+                } else {
+                    printf("  - %s %s\n", ancestors[i]->firstname, ancestors[i]->lastname);
+                }
+            }
+        }
+        free(ancestors);
+    }
+}
+
 void printPersonDetails(Person *person) {
     printf("ID: %d\n", person->id);
     printf("Nom: %s\n", person->lastname);
@@ -90,12 +107,5 @@ void printPersonDetails(Person *person) {
     printf("Père: %s\n", getFullName(person->p_father));
     printf("Mère: %s\n", getFullName(person->p_mother));
     printf("Conjoint: %s\n", getSpouseName(person));
-
-    printChildren(person->num_children, person);
-
-    printf("Frères et sœurs de %s %s:\n", person->firstname, person->lastname);
-    int numSiblings = 0;
-    printSiblings(person, &numSiblings);
-
     printf("\n");
 }
