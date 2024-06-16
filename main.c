@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "menu.h"
+#include "htmlexport.h"
 
 // Déclarer la population comme variable globale
 Population global_population;
