@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "menu.h"
 #include "htmlexport.h"
 #include "population.h"
@@ -114,7 +115,11 @@ int main(int argc, char *argv[]) {
             fprintf(stderr, "Usage: %s export_html <filename>\n", argv[0]);
             return 1;
         }
+        clock_t start = clock();
         export_html(&global_population);
+        clock_t end = clock();
+        float time_spent = ((float) (end - start)) / CLOCKS_PER_SEC;
+        printf("Temps passé pour créer les pages HTML : %.2f secondes.\n", time_spent);
         // Handle unknown commands
     } else {
         fprintf(stderr, "Unknown command: %s\n", command);

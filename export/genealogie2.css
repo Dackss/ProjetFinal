@@ -20,7 +20,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('tree2.png') no-repeat right;
+    background: url('../result/tree2.png') no-repeat right;
     background-size: 1450px;
     filter: blur(3px); /* Ajout d'un flou à la couche verte */
     z-index: -1; /* Pour s'assurer que le background est derrière le filtre */

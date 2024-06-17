@@ -48,6 +48,7 @@ void update_html(const char *output_filename, Person *p)
             "            </div>\n"
             "        </header>\n"
             "        <main>\n"
+            "            <img src=\"../tree2.png\" class=\"arbre\"alt=\"Arbre Généalogique\">\n"
             "            <div class=\"tree\">\n"
             "                <ul>\n"
             "                    <li>\n"
