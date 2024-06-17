@@ -7,21 +7,10 @@
 #define MAX_HTML_LETTER 50
 
 //Changer donner de la struct en html
-int titleHTMLtoPerso(char * buffer, Person * p) {
-
-    //vérifier pointeurs non nuls
-    if(!buffer || !p){
-        return 0; // echec
-    }
-
-    //générer le titre html
-    int THtml = printf(buffer, MAX_HTML_LETTER, "<title> %d; %s %s </title>", p->id, p->firstname, p->lastname);
-
-    //Vérifier la génération du titre
-    if(THtml<0 || THtml >= MAX_HTML_LETTER){
-        return 0;
-    }
-    return THtml;
+char titleHTMLtoPerso(Person * p) {
+    char name[30];
+    sprintf(name,"%s", p->lastname);
+    return name;
 }
 
 //convertir un arbre en tableau
