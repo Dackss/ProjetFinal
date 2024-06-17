@@ -1,15 +1,52 @@
-/* Now the CSS */
 * {
     margin: 0;
     padding: 0;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #085d01, #246801, #397301, #4c7d01, #5f8802);
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0);
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.header-left, .header-right {
+    flex: 1;
+    text-align: right;
+}
+
+.header-left {
+    text-align: left;
+}
+
+.header-left h1, .header-right h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
 .tree ul {
     padding-top: 40px;
     position: relative;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
 }
 
 .tree li {
@@ -18,12 +55,8 @@
     list-style-type: none;
     position: relative;
     padding: 25px 15px 0 25px;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
 }
 
-/* We will use ::before and ::after to draw the connectors */
 .tree li::before, .tree li::after {
     content: '';
     position: absolute;
@@ -40,36 +73,20 @@
     border-left: 3px solid #ccc;
 }
 
-/* We need to remove left-right connectors from elements without any siblings */
-.tree li:only-child::after, .tree li:only-child::before {
+.tree li:only-child::after, .tree li:only-child::before,
+.tree li:first-child::before, .tree li:last-child::after {
     display: none;
 }
 
-/* Remove space from the top of single children */
-.tree li:only-child {
-    padding-top: 0;
-}
-
-/* Remove left connector from first child and right connector from last child */
-.tree li:first-child::before, .tree li:last-child::after {
-    border: 0 none;
-}
-
-/* Adding back the vertical connector to the last nodes */
 .tree li:last-child::before {
     border-right: 3px solid #ccc;
     border-radius: 0 5px 0 0;
-    -webkit-border-radius: 0 5px 0 0;
-    -moz-border-radius: 0 5px 0 0;
 }
 
 .tree li:first-child::after {
     border-radius: 5px 0 0 0;
-    -webkit-border-radius: 5px 0 0 0;
-    -moz-border-radius: 5px 0 0 0;
 }
 
-/* Time to add downward connectors from parents */
 .tree ul ul::before {
     content: '';
     position: absolute;
@@ -88,81 +105,28 @@
     font-size: 18px;
     display: inline-block;
     border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
+    background: rgba(192, 201, 192, 0.37);
+    transition: all 0.3s ease-in-out;
 }
 
-/* Custom styles for images and text */
+.tree li a:hover {
+    transform: scale(1.1);
+}
+
 .tree li a img {
     display: block;
-    margin: 0 auto 10px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    margin: 0 50px 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 20%;
 }
 
 .tree li a p {
     margin: 0;
 }
 
-/* Time for some hover effects */
-/* We will apply the hover effect to the lineage of the element also */
 .tree li a:hover {
     background: #c8e4f8;
     color: #000;
     border: 3px solid #94a0b4;
-}
-
-/* General styling for the rest of the document */
-body {
-    font-family: Arial, sans-serif;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    min-height: 100vh;
-    background-image: linear-gradient(to bottom, #085d01, #246801, #397301, #4c7d01, #5f8802);
-}
-
-header {
-    background-color: rgba(0, 0, 0, 0.7);
-    width: 100%;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    z-index: 1;
-}
-
-.header-left, .header-right {
-    flex: 1;
-}
-
-.header-left h1, .header-right h1 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.header-left {
-    text-align: left;
-}
-
-.header-right {
-    text-align: right;
-}
-
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-    position: relative;
-    z-index: 1;
 }

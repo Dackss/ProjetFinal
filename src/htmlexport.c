@@ -9,6 +9,10 @@ char* linkHtml(int id, const char *firstname, const char *lastname) {
     return link;
 }
 
+char* getFamilyName(Person *p) {
+    return p->lastname;
+}
+
 void export_html(Population *population) {
     for (int i = 0; i < population->size; i++) {
         if (population->persons[i].id != 0) {
@@ -32,16 +36,15 @@ void update_html(const char *output_filename, Person *p)
             "    <head>\n"
             "        <meta charset=\"UTF-8\">\n"
             "        <link rel=\"stylesheet\" href=\"../genealogie.css\">\n"
-            "        <link rel=\"script\" href=\"../main.js\">\n"
             "        <title>Arbre Généalogique</title>\n"
             "    </head>\n"
             "    <body>\n"
             "        <header>\n"
             "            <div class=\"header-left\">\n"
-            "                <h1>Nom de l'Entreprise</h1>\n"
+            "                <h1>Family Trees</h1>\n"
             "             </div>\n"
             "            <div class=\"header-right\">\n"
-            "                <h1>Nom de la Famille</h1>\n"
+            "                <h1>Famille : %s</h1>\n"
             "            </div>\n"
             "        </header>\n"
             "        <main>\n"
@@ -50,7 +53,7 @@ void update_html(const char *output_filename, Person *p)
             "                    <li>\n"
             "                        %s\n"  // Remplace par le lien de la personne
             "                        <ul>\n",
-            personLink
+            getFamilyName(p), personLink
     );
 
     if (p->p_father) {
@@ -99,6 +102,7 @@ void update_html(const char *output_filename, Person *p)
             "                </ul>\n"
             "            </div>\n"
             "        </main>\n"
+            "      <script src=\"../main.js\"></script>"
             "    </body>\n"
             "</html>\n"
     );

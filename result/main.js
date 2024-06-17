@@ -1,9 +1,9 @@
-let ids = [];
-
-for (let i = 1; i < 8; i++) {
-    ids.push(document.getElementById(`id${i}`));
-}
-
-for (let id of ids) {
-    id.innerHTML = "Hello, World!";
+window.onload = function() {
+    let links = document.getElementsByTagName('a'); // Récupère tous les liens
+    for(let i = 0; i < links.length; i++) {
+        if(links[i].innerText.includes('-')) {
+            links[i].innerText = 'Inconnu';
+            links[i].href = '#';
+        }
+    }
 }
