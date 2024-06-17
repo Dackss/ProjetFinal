@@ -19,7 +19,7 @@ body::before {
     right: 0;
     bottom: 0;
     background: url('tree1.png') no-repeat right;
-    background-size: 950px;
+    background-size: 1450px;
     filter: blur(3px); /* Ajout d'un flou à la couche verte */
     z-index: -2; /* Pour s'assurer que le background est derrière le filtre */
 }
@@ -76,29 +76,22 @@ body::after {
 #mid{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    column-gap: 40em;
+    justify-content: center;
+    column-gap: 35em;
     align-items: center;
+    position: relative;
     padding: 2.5%;
 }
 .person{
     border-radius: 10%;
-    padding: 10% 10% 10% 10%;
+    padding: 30% 30% 30% 30%;
     background-image: url("img.jpg");
     background-size: cover;
-}
-#bottom{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2.5%;
+    margin: 250px;
 }
 .texte{
-    height: 400px;
-    width: 1500px;
-    padding: 0;
-    margin: 0;
     border: 3px solid black;
+
 }
 .left{
     display : inline-block;
@@ -119,15 +112,15 @@ body::after {
 .generation {
     display: flex;
     justify-content: space-around;
-    margin: 2rem 0; /* Augmentation de l'espace entre les générations */
+    margin: 1rem 0; /* Augmentation de l'espace entre les générations */
     width: 100%;
 }
 
 .member {
     text-align: center;
     position: relative;
-    margin: 0 2rem; /* Augmentation de l'espace entre les membres */
-    font-size: 35px;
+    margin: 0.1%; /* Augmentation de l'espace entre les membres */
+    font-size: 15px;
 }
 
 .member img {
@@ -137,4 +130,25 @@ body::after {
     border: 2px solid #fff;
     object-fit: cover; /* Rogner l'image pour qu'elle couvre l'espace sans se déformer */
     object-position: center; /* Centrer l'image rognée */
+    padding: 10%;
+}
+.p1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 850px;
+  }
+.generation{
+    margin: 11rem 0;
+    margin-left: 400px;
+}
+#ensemble{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#bottom{
+    margin: 10px;
+    text-align: center;
 }
