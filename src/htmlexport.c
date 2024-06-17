@@ -34,13 +34,13 @@ void update_html(const char *template_filename, const char *output_filename, Per
     char line[1024];
     while (fgets(line, sizeof(line), template_file)) {
         if (strstr(line, "<!-- Génération 1 -->")) {
-            fprintf(output_file, "<div class='generation'>\n");
-            fprintf(output_file, "    <div class='member'>\n");
-            fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->firstname, p->lastname);
-            fprintf(output_file, "        <p>%s %s</p>\n", p->firstname, p->lastname);
-            fprintf(output_file, "        <div class='connection'></div>\n");
-            fprintf(output_file, "    </div>\n");
-            fprintf(output_file, "</div>\n");
+            fprintf(output_file, "            <div class='generation'>\n");
+            fprintf(output_file, "                <div class='member'>\n");
+            fprintf(output_file, "                    <img src='img.jpg' alt='%s %s'>\n", p->firstname, p->lastname);
+            fprintf(output_file, "                    <p>%s %s</p>\n", p->firstname, p->lastname);
+            fprintf(output_file, "                    <div class='connection'></div>\n");
+            fprintf(output_file, "                </div>\n");
+            fprintf(output_file, "            </div>\n");
 
         } else if (strstr(line, "<!-- Génération 2 -->")) {
             fprintf(output_file, "<div class='generation'>\n");
