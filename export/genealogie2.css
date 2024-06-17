@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     color: #fff;
@@ -10,10 +9,32 @@ body {
     position: relative;
     min-height: 100vh;
     overflow: hidden;
-    background-image: url("bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
 }
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('tree1.png') no-repeat right;
+    background-size: 950px;
+    filter: blur(3px); /* Ajout d'un flou à la couche verte */
+    z-index: -2; /* Pour s'assurer que le background est derrière le filtre */
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 128, 0, 0.3); /* Couche verte semi-transparente */
+    z-index: -1; /* Pour s'assurer que le filtre est derrière le contenu */
+}
+
 
 #top{
     display: flex;

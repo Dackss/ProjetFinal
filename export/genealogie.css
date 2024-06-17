@@ -18,8 +18,8 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-size: 20px 30px;
-    background: #328602 radial-gradient(circle farthest-side at 0% 50%, #328602 23.5%, #0000 0) radial-gradient(circle farthest-side at 0% 50%, #00d111 24%, #0000 0) linear-gradient(#328602 14%, #0000 0, #0000 85%, #328602 0) linear-gradient(150deg, #328602 24%, #00d111 0, #00d111 26%, #0000 0, #0000 74%, #00d111 0, #00d111 76%, #328602 0) linear-gradient(30deg, #328602 24%, #00d111 0, #00d111 26%, #0000 0, #0000 74%, #00d111 0, #00d111 76%, #328602 0) linear-gradient(90deg, #00d111 2%, #328602 0, #328602 98%, #00d111 0%) 10.5px 15px 9.5px 15px 0 0 0 0 0 0 0 0;
+    background: url('tree1.png') no-repeat center;
+    background-size: 950px;
     filter: blur(3px); /* Ajout d'un flou à la couche verte */
     z-index: -2; /* Pour s'assurer que le background est derrière le filtre */
 }
@@ -82,7 +82,7 @@ main {
 .generation {
     display: flex;
     justify-content: space-around;
-    margin: 2rem 0; /* Augmentation de l'espace entre les générations */
+    margin: 6rem 0; /* Augmentation de l'espace entre les générations */
     width: 100%;
 }
 
@@ -109,10 +109,10 @@ main {
 .connection::after {
     content: '';
     position: absolute;
-    border-left: 2px solid #fff;
-    height: 20px;
+    border-left: 10px solid white;
+    height: 30px;
     left: 50%;
-    top: 100%;
+    top: -100%;
     transform: translateX(-50%);
 }
 
