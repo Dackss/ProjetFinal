@@ -43,7 +43,7 @@ void exportTableau_HTML(Population *p, const char *filename){
         perror("Could not open file");
         exit(EXIT_FAILURE);
     }
-    char name = (char) titleHTML(&p->persons[1]);
+    char *name = titleHTML(&p->persons[1]);
     //ecriture de l'html
     fprintf(file,"<!DOCTYPE html>\n");
     fprintf(file,"<html lang=\"fr\">\n");
@@ -103,6 +103,6 @@ void exportTableau_HTML(Population *p, const char *filename){
     fprintf(file,"</main>\n");
     fprintf(file,"</body>\n");
     fprintf(file,"</html>\n");
-
     fclose(file);
+    free(name);
 }
