@@ -43,50 +43,48 @@ void update_html(const char *template_filename, const char *output_filename, Per
             fprintf(output_file, "            </div>\n");
 
         } else if (strstr(line, "<!-- Génération 2 -->")) {
-            fprintf(output_file, "<div class='generation'>\n");
+            fprintf(output_file, "            <div class='generation'>\n");
             if (p->p_father) {
-                fprintf(output_file, "    <div class='member'>\n");
-                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_father->firstname, p->p_father->lastname);
-                fprintf(output_file, "        <p>%s %s</p>\n", p->p_father->firstname, p->p_father->lastname);
-                fprintf(output_file, "        <div class='connection'></div>\n");
-                fprintf(output_file, "    </div>\n");
+                fprintf(output_file, "                <div class='member'>\n");
+                fprintf(output_file, "                    <img src='img.jpg' alt='%s %s'>\n", p->p_father->firstname, p->p_father->lastname);
+                fprintf(output_file, "                    <p>%s %s</p>\n", p->p_father->firstname, p->p_father->lastname);
+                fprintf(output_file, "                </div>\n");
             }
             if (p->p_mother) {
-                fprintf(output_file, "    <div class='member'>\n");
-                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_mother->firstname, p->p_mother->lastname);
-                fprintf(output_file, "        <p>%s %s</p>\n", p->p_mother->firstname, p->p_mother->lastname);
-                fprintf(output_file, "        <div class='connection'></div>\n");
-                fprintf(output_file, "    </div>\n");
+                fprintf(output_file, "                <div class='member'>\n");
+                fprintf(output_file, "                    <img src='img.jpg' alt='%s %s'>\n", p->p_mother->firstname, p->p_mother->lastname);
+                fprintf(output_file, "                    <p>%s %s</p>\n", p->p_mother->firstname, p->p_mother->lastname);
+                fprintf(output_file, "                </div>\n");
             }
-            fprintf(output_file, "</div>\n");
+            fprintf(output_file, "            </div>\n");
 
         } else if (strstr(line, "<!-- Génération 3 -->")) {
-            fprintf(output_file, "<div class='generation'>\n");
+            fprintf(output_file, "            <div class='generation'>\n");
             if (p->p_father && p->p_father->p_father) {
-                fprintf(output_file, "    <div class='member generation'>\n");
-                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_father->p_father->firstname, p->p_father->p_father->lastname);
-                fprintf(output_file, "        <p>%s %s</p>\n", p->p_father->p_father->firstname, p->p_father->p_father->lastname);
-                fprintf(output_file, "    </div>\n");
+                fprintf(output_file, "                <div class='member'>\n");
+                fprintf(output_file, "                    <img src='img.jpg' alt='%s %s'>\n", p->p_father->p_father->firstname, p->p_father->p_father->lastname);
+                fprintf(output_file, "                    <p>%s %s</p>\n", p->p_father->p_father->firstname, p->p_father->p_father->lastname);
+                fprintf(output_file, "                </div>\n");
             }
             if (p->p_father && p->p_father->p_mother) {
-                fprintf(output_file, "    <div class='member generation'>\n");
-                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_father->p_mother->firstname, p->p_father->p_mother->lastname);
-                fprintf(output_file, "        <p>%s %s</p>\n", p->p_father->p_mother->firstname, p->p_father->p_mother->lastname);
-                fprintf(output_file, "    </div>\n");
+                fprintf(output_file, "                <div class='member'>\n");
+                fprintf(output_file, "                    <img src='img.jpg' alt='%s %s'>\n", p->p_father->p_mother->firstname, p->p_father->p_mother->lastname);
+                fprintf(output_file, "                    <p>%s %s</p>\n", p->p_father->p_mother->firstname, p->p_father->p_mother->lastname);
+                fprintf(output_file, "                </div>\n");
             }
             if (p->p_mother && p->p_mother->p_father) {
-                fprintf(output_file, "    <div class='member generation'>\n");
-                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_mother->p_father->firstname, p->p_mother->p_father->lastname);
-                fprintf(output_file, "        <p>%s %s</p>\n", p->p_mother->p_father->firstname, p->p_mother->p_father->lastname);
-                fprintf(output_file, "    </div>\n");
+                fprintf(output_file, "                <div class='member'>\n");
+                fprintf(output_file, "                    <img src='img.jpg' alt='%s %s'>\n", p->p_mother->p_father->firstname, p->p_mother->p_father->lastname);
+                fprintf(output_file, "                    <p>%s %s</p>\n", p->p_mother->p_father->firstname, p->p_mother->p_father->lastname);
+                fprintf(output_file, "                </div>\n");
             }
             if (p->p_mother && p->p_mother->p_mother) {
-                fprintf(output_file, "    <div class='member'>\n");
-                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname);
-                fprintf(output_file, "        <p>%s %s</p>\n", p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname);
-                fprintf(output_file, "    </div>\n");
+                fprintf(output_file, "                <div class='member'>\n");
+                fprintf(output_file, "                    <img src='img.jpg' alt='%s %s'>\n", p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname);
+                fprintf(output_file, "                    <p>%s %s</p>\n", p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname);
+                fprintf(output_file, "                </div>\n");
             }
-            fprintf(output_file, "</div>\n");
+            fprintf(output_file, "            </div>\n");
 
         } else {
             fprintf(output_file, "%s", line);
