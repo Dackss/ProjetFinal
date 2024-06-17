@@ -1,84 +1,98 @@
-//
-// Created by Thomas & Quentin on 14/06/2024.
-//
-#include "../include/person.h"
-#include "../include/population.h"
-#define MAX_NAME_LETTER 25
-#define MAX_HTML_LETTER 50
+#include <stdio.h>
+#include <string.h>
+#include "person.h"
+#include "population.h"
 
-//Changer donner de la struct en html
-char *titleHTML(Person * p) {
-    char *name = malloc(30 * sizeof(char));
-    sprintf(name,"%s", p->lastname);
-    return name;
+// Function prototypes
+void update_html(const char *template_filename, const char *output_filename, Person *p, Population *population);
+
+void export_html(Population *population) {
+    for (int i = 0; i < population->size; i++) {
+        if (population->persons[i].id != 0) {
+            char filename[50];
+            sprintf(filename, "../result/person_%d.html", population->persons[i].id);
+            update_html("../export/genealogie.html", filename, &population->persons[i], population);
+        }
+    }
 }
 
-void exportTableau_HTML(Population *p, const char *filename){
-    FILE *file = fopen(filename, "w");
-    if (!file) {
-        perror("Could not open file");
-        exit(EXIT_FAILURE);
+void update_html(const char *template_filename, const char *output_filename, Person *p, Population *population) {
+    FILE *template_file = fopen(template_filename, "r");
+    if (!template_file) {
+        printf("Error");
+        fclose(template_file);
+        return;
     }
-    char *name = titleHTML(&p->persons[1]);
-    //ecriture de l'html
-    fprintf(file,"<!DOCTYPE html>\n");
-    fprintf(file,"<html lang=\"fr\">\n");
-    fprintf(file,"<head>\n");
-    fprintf(file,"    <meta charset=\"UTF-8\">\n");
-    fprintf(file,"    <title>Arbre Généalogique</title>\n");
-    fprintf(file,"</head>\n");
-    fprintf(file,"<body>\n");
-    fprintf(file,"<header>\n");
-    fprintf(file,"<div class=\"header-left\">\n");
-    fprintf(file,"  <h1>Nom de l'Entreprise</h1>\n");
-    fprintf(file," <div class=\"header-right\">\n");
-    fprintf(file,"        <h1>Nom de la Famille</h1>\n");
-    fprintf(file,"    </div>\n");
-    fprintf(file,"</header>\n");
-    fprintf(file,"<main>\n");
-    fprintf(file,"    <section id=\"tree\">\n");
-    fprintf(file,"        <div class=\"generation\">\n");
-    fprintf(file,"            <div class=\"member\">\n");
-    fprintf(file,"                <img src=\"img.jpg\" alt=\"Personne 1\">\n");
-    fprintf(file,"                <p>Personne 1</p>\n");
-    fprintf(file,"                <div class=\"connection\"></div>\n");
-    fprintf(file,"                <div class=\"connection\"></div>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"        </div>\n");
-    fprintf(file,"        <div class=\"generation\">\n");
-    fprintf(file,"            <div class=\"member\">\n");
-    fprintf(file,"                <img src=\"img.jpg\" alt=\"Père\">\n");
-    fprintf(file,"                <p>Père</p>\n");
-    fprintf(file,"                <div class=\"connection\"></div>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"            <div class=\"member\">\n");
-    fprintf(file,"                <img src=\"img.jpg\" alt=\"Mère\">\n");
-    fprintf(file,"                <p>Mère</p>\n");
-    fprintf(file,"                <div class=\"connection\"></div>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"        <div class=\"generation\">\n");
-    fprintf(file,"            <div class=\"member\">\n");
-    fprintf(file,"                <img src=\"img.jpg\" alt=\"Grand-Père Paternel\">\n");
-    fprintf(file,"                <p>Grand-Père Paternel</p>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"            <div class=\"member\">\n");
-    fprintf(file,"                <img src=\"img.jpg\" alt=\"Grand-Mère Paternelle\">\n");
-    fprintf(file,"                <p>Grand-Mère Paternelle</p>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"            <div class=\"member\">\n");
-    fprintf(file,"                <img src=\"img.jpg\" alt=\"Grand-Père Maternel\">\n");
-    fprintf(file,"                <p>Grand-Père Maternel</p>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"            <div class=\"member\">\n");
-    fprintf(file,"                <img src=\"img.jpg\" alt=\"Grand-Mère Maternelle\">\n");
-    fprintf(file,"                <p>Grand-Mère Maternelle</p>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"            </div>\n");
-    fprintf(file,"    </section>\n");
-    fprintf(file,"</main>\n");
-    fprintf(file,"</body>\n");
-    fprintf(file,"</html>\n");
-    fclose(file);
-    free(name);
+
+    FILE *output_file = fopen(output_filename, "w");
+    if (!output_file) {
+        printf("Error");
+        fclose(template_file);
+        return;
+    }
+
+    char line[1024];
+    while (fgets(line, sizeof(line), template_file)) {
+        if (strstr(line, "<!-- Génération 1 -->")) {
+            fprintf(output_file, "<div class='generation'>\n");
+            fprintf(output_file, "    <div class='member'>\n");
+            fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->firstname, p->lastname);
+            fprintf(output_file, "        <p>%s %s</p>\n", p->firstname, p->lastname);
+            fprintf(output_file, "        <div class='connection'></div>\n");
+            fprintf(output_file, "    </div>\n");
+            fprintf(output_file, "</div>\n");
+
+        } else if (strstr(line, "<!-- Génération 2 -->")) {
+            fprintf(output_file, "<div class='generation'>\n");
+            if (p->p_father) {
+                fprintf(output_file, "    <div class='member'>\n");
+                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_father->firstname, p->p_father->lastname);
+                fprintf(output_file, "        <p>%s %s</p>\n", p->p_father->firstname, p->p_father->lastname);
+                fprintf(output_file, "        <div class='connection'></div>\n");
+                fprintf(output_file, "    </div>\n");
+            }
+            if (p->p_mother) {
+                fprintf(output_file, "    <div class='member'>\n");
+                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_mother->firstname, p->p_mother->lastname);
+                fprintf(output_file, "        <p>%s %s</p>\n", p->p_mother->firstname, p->p_mother->lastname);
+                fprintf(output_file, "        <div class='connection'></div>\n");
+                fprintf(output_file, "    </div>\n");
+            }
+            fprintf(output_file, "</div>\n");
+
+        } else if (strstr(line, "<!-- Génération 3 -->")) {
+            fprintf(output_file, "<div class='generation'>\n");
+            if (p->p_father && p->p_father->p_father) {
+                fprintf(output_file, "    <div class='member generation'>\n");
+                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_father->p_father->firstname, p->p_father->p_father->lastname);
+                fprintf(output_file, "        <p>%s %s</p>\n", p->p_father->p_father->firstname, p->p_father->p_father->lastname);
+                fprintf(output_file, "    </div>\n");
+            }
+            if (p->p_father && p->p_father->p_mother) {
+                fprintf(output_file, "    <div class='member generation'>\n");
+                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_father->p_mother->firstname, p->p_father->p_mother->lastname);
+                fprintf(output_file, "        <p>%s %s</p>\n", p->p_father->p_mother->firstname, p->p_father->p_mother->lastname);
+                fprintf(output_file, "    </div>\n");
+            }
+            if (p->p_mother && p->p_mother->p_father) {
+                fprintf(output_file, "    <div class='member generation'>\n");
+                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_mother->p_father->firstname, p->p_mother->p_father->lastname);
+                fprintf(output_file, "        <p>%s %s</p>\n", p->p_mother->p_father->firstname, p->p_mother->p_father->lastname);
+                fprintf(output_file, "    </div>\n");
+            }
+            if (p->p_mother && p->p_mother->p_mother) {
+                fprintf(output_file, "    <div class='member'>\n");
+                fprintf(output_file, "        <img src='img.jpg' alt='%s %s'>\n", p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname);
+                fprintf(output_file, "        <p>%s %s</p>\n", p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname);
+                fprintf(output_file, "    </div>\n");
+            }
+            fprintf(output_file, "</div>\n");
+
+        } else {
+            fprintf(output_file, "%s", line);
+        }
+    }
+
+    fclose(template_file);
+    fclose(output_file);
 }

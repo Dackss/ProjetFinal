@@ -8,7 +8,6 @@ body {
     align-items: center;
     position: relative;
     min-height: 100vh;
-    overflow: hidden;
 }
 
 body::before {
@@ -19,7 +18,7 @@ body::before {
     right: 0;
     bottom: 0;
     background-size: 20px 30px;
-    background: #328602 radial-gradient(circle farthest-side at 0% 50%, #328602 23.5%, #0000 0) radial-gradient(circle farthest-side at 0% 50%, #00d111 24%, #0000 0) linear-gradient(#328602 14%, #0000 0, #0000 85%, #328602 0) linear-gradient(150deg, #328602 24%, #00d111 0, #00d111 26%, #0000 0, #0000 74%, #00d111 0, #00d111 76%, #328602 0) linear-gradient(30deg, #328602 24%, #00d111 0, #00d111 26%, #0000 0, #0000 74%, #00d111 0, #00d111 76%, #328602 0) linear-gradient(90deg, #00d111 2%, #328602 0, #328602 98%, #00d111 0%) 10.5px 15px 9.5px 15px 0 0 0 0 0 0 0 0;
+    background: #328602 radial-gradient(circle farthest-side at 0% 50%, #328602 23.5%, #0000 0);
     filter: blur(3px); /* Ajout d'un flou à la couche verte */
     z-index: -2; /* Pour s'assurer que le background est derrière le filtre */
 }

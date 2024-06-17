@@ -5,11 +5,10 @@
 #ifndef PROJETFINAL_HTMLEXPORT_H
 #define PROJETFINAL_HTMLEXPORT_H
 
-#include "person.h"
 #include "population.h"
 
-int titreHTMLtoPerso(char * buffer, Person * p);
-int treeToTableau(Population *p, Person *root, Person **tableau, int index);
-void exportTableau_HTML(Population *p, const char *filename);
 
-#endif //PROJETFINAL_HTMLEXPORT_H
+void export_html(Population *population);
+void update_html(const char *template_filename, const char *output_filename, Person *p, Population *population);
+
+#endif

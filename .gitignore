@@ -6,3 +6,5 @@ cmake-build-debug/CMakeCache.txt
 cmake-build-debug/Makefile
 cmake-build-debug/ProjetFinal.cbp
 cmake-build-debug/ProjetFinal
+
+result/*.html
