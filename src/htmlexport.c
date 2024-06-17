@@ -36,6 +36,7 @@ void update_html(const char *output_filename, Person *p)
             "    <head>\n"
             "        <meta charset=\"UTF-8\">\n"
             "        <link rel=\"stylesheet\" href=\"../genealogie.css\">\n"
+            "        <script src=\"../main.js\"></script>"
             "        <title>Arbre Généalogique</title>\n"
             "    </head>\n"
             "    <body>\n"
@@ -103,7 +104,6 @@ void update_html(const char *output_filename, Person *p)
             "                </ul>\n"
             "            </div>\n"
             "        </main>\n"
-            "      <script src=\"../main.js\"></script>"
             "    </body>\n"
             "</html>\n"
     );
