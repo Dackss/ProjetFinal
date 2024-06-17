@@ -8,30 +8,7 @@ body {
     align-items: center;
     position: relative;
     min-height: 100vh;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: 20px 30px;
-    background: #328602 radial-gradient(circle farthest-side at 0% 50%, #328602 23.5%, #0000 0);
-    filter: blur(3px); /* Ajout d'un flou à la couche verte */
-    z-index: -2; /* Pour s'assurer que le background est derrière le filtre */
-}
-
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 128, 0, 0.3); /* Couche verte semi-transparente */
-    z-index: -1; /* Pour s'assurer que le filtre est derrière le contenu */
+    background-image: linear-gradient(to bottom, #085d01, #246801, #397301, #4c7d01, #5f8802);
 }
 
 header {
