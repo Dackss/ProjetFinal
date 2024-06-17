@@ -95,7 +95,7 @@ main() {
                 5) export_html ;;
                 6) echo "Quitter..."; exit 0 ;;
                 *) echo "Option invalide!"; pause ;;
-            esac
+        esac
     done
 }
 

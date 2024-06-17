@@ -108,6 +108,15 @@ int main(int argc, char *argv[]) {
         int numSiblings;
         printSiblings(&global_population.persons[id], &numSiblings);
 
+
+    } else if (strcmp(command, "export_html") == 0) {
+        if (argc < 3) {
+            fprintf(stderr, "Usage: %s export_html <filename>\n", argv[0]);
+            return 1;
+        }
+        const char *filename = argv[2];
+        exportTableau_HTML(&global_population, filename);
+
         // Handle unknown commands
     } else {
         fprintf(stderr, "Unknown command: %s\n", command);
@@ -115,12 +124,3 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
-
-/*else if (strcmp(command, "export_html") == 0) {
-       if (argc < 3) {
-           fprintf(stderr, "Usage: %s export_html <filename>\n", argv[0]);
-           return 1;
-       }
-       const char *filename = argv[2];
-       exportTableau_HTML(&global_population, filename);
-   } */

@@ -7,8 +7,8 @@
 #define MAX_HTML_LETTER 50
 
 //Changer donner de la struct en html
-char titleHTMLtoPerso(Person * p) {
-    char name[30];
+char *titleHTML(Person * p) {
+    char *name = malloc(30 * sizeof(char));
     sprintf(name,"%s", p->lastname);
     return name;
 }
@@ -43,7 +43,8 @@ void exportTableau_HTML(Population *p, const char *filename){
         perror("Could not open file");
         exit(EXIT_FAILURE);
     }
-//ecriture de l'html
+    char name = (char) titleHTML(&p->persons[1]);
+    //ecriture de l'html
     fprintf(file,"<!DOCTYPE html>\n");
     fprintf(file,"<html lang=\"fr\">\n");
     fprintf(file,"<head>\n");
