@@ -9,6 +9,5 @@
 
 
 void export_html(Population *population);
-void update_html(const char *template_filename, const char *output_filename, Person *p, Population *population);
-
+void update_html(const char *output_filename, Person *p);
 #endif
