@@ -9,7 +9,7 @@
 
 
 void export_html(Population *population);
-void update_html(const char *output_filename, Person *p);
+void update_html(const char *template_file, const char *output_filename, Person *p);
 void create_info_html(const char *output_filename, Person *p);
 
 #endif

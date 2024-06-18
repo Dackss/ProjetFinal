@@ -18,95 +18,92 @@ void export_html(Population *population) {
         if (population->persons[i].id != 0) {
             char filename[50];
             sprintf(filename, "../result/trees/tree_person_%d.html", population->persons[i].id);
-            update_html(filename, &population->persons[i]);
+            update_html("../result/template_trees.html",filename, &population->persons[i]);
             sprintf(filename, "../result/info/info_person_%d.html", population->persons[i].id);
             create_info_html(filename, &population->persons[i]);
         }
     }
 }
 
-void update_html(const char *output_filename, Person *p)
-{
+void update_html(const char *template_file, const char *output_filename, Person *p) {
     FILE *output_file = fopen(output_filename, "w");
+    FILE *template = fopen(template_file, "r");
+    if (!(template || output_file)) {
+        printf("Fichier pas ouvert");
+        return;
+    }
 
     char *personLink = linkHtml(p->id, p->firstname, p->lastname);
-    fprintf(output_file,
-            "<!DOCTYPE html>\n"
-            "<html lang=\"fr\">\n"
-            "    <head>\n"
-            "        <meta charset=\"UTF-8\">\n"
-            "        <link rel=\"stylesheet\" href=\"../genealogie.css\">\n"
-            "        <script src=\"../main.js\"></script>"
-            "        <title>Arbre Généalogique</title>\n"
-            "    </head>\n"
-            "    <body>\n"
-            "        <header>\n"
-            "            <div class=\"header-left\">\n"
-            "                <h1>Family Trees</h1>\n"
-            "             </div>\n"
-            "            <div class=\"header-right\">\n"
-            "                <h1>Famille : %s</h1>\n"
-            "            </div>\n"
-            "        </header>\n"
-            "        <main>\n"
-            "            <img src=\"../tree2.png\" class=\"arbre\"alt=\"Arbre Généalogique\">\n"
-            "            <div class=\"tree\">\n"
-            "                <ul>\n"
-            "                    <li>\n"
-            "                        %s\n"  // Remplace par le lien de la personne
-            "                        <ul>\n",
-            getFamilyName(p), personLink
-    );
+    char line[1000];
+    while (fgets(line, sizeof(line), template)) {
+        if (strstr(line, "<!-- Generation  -->")) {
+            fprintf(output_file,
+                    "                <ul>\n"
+                    "                    <li>\n"
+                    "                        %s\n"  // Remplace par le lien de la personne
+                    "                        <ul>\n",
+                    personLink
+            );
+            free(personLink);
+            if (p->p_father) {
+                char *fatherLink = linkHtml(p->p_father->id, p->p_father->firstname, p->p_father->lastname);
+                char *grandpaLink = p->p_father->p_father ? linkHtml(p->p_father->p_father->id,
+                                                                     p->p_father->p_father->firstname,
+                                                                     p->p_father->p_father->lastname) : strdup(
+                        "<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
+                char *grandmaLink = p->p_father->p_mother ? linkHtml(p->p_father->p_mother->id,
+                                                                     p->p_father->p_mother->firstname,
+                                                                     p->p_father->p_mother->lastname) : strdup(
+                        "<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
 
-    if (p->p_father) {
-        char *fatherLink = linkHtml(p->p_father->id, p->p_father->firstname, p->p_father->lastname);
-        char *grandpaLink = p->p_father->p_father ? linkHtml(p->p_father->p_father->id, p->p_father->p_father->firstname, p->p_father->p_father->lastname) : strdup("<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
-        char *grandmaLink = p->p_father->p_mother ? linkHtml(p->p_father->p_mother->id, p->p_father->p_mother->firstname, p->p_father->p_mother->lastname) : strdup("<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
+                fprintf(output_file,
+                        "                            <li>\n"
+                        "                               %s\n"  // Father's link
+                        "                               <ul>\n"
+                        "                                   <li>%s"
+                        "                                                        </li>\n"  // Grandfather's link
+                        "                                   <li>%s"
+                        "                                                        </li>\n"  // Grandmother's link
+                        "                               </ul>\n"
+                        "                            </li>\n",
+                        fatherLink, grandpaLink, grandmaLink
+                );
 
-        fprintf(output_file,
-                "<li>\n"
-                "   %s\n"  // Father's link
-                "   <ul>\n"
-                "       <li>%s</li>\n"  // Grandfather's link
-                "       <li>%s</li>\n"  // Grandmother's link
-                "   </ul>\n"
-                "</li>\n",
-                fatherLink, grandpaLink, grandmaLink
-        );
+                free(fatherLink);
+                free(grandpaLink);
+                free(grandmaLink);
+            }
+            if (p->p_mother) {
+                char *motherLink = linkHtml(p->p_mother->id, p->p_mother->firstname, p->p_mother->lastname);
+                char *grandpaLink = p->p_mother->p_father ? linkHtml(p->p_mother->p_father->id,
+                                                                     p->p_mother->p_father->firstname,
+                                                                     p->p_mother->p_father->lastname) : strdup(
+                        "<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
+                char *grandmaLink = p->p_mother->p_mother ? linkHtml(p->p_mother->p_mother->id,
+                                                                     p->p_mother->p_mother->firstname,
+                                                                     p->p_mother->p_mother->lastname) : strdup(
+                        "<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
 
-        free(fatherLink);
-        free(grandpaLink);
-        free(grandmaLink);
+                fprintf(output_file,
+                        "                            <li>\n"
+                        "                               %s\n"  // Mother's link
+                        "                               <ul>\n"
+                        "                                   <li>%s"
+                        "                                                        </li>\n"  // Grandfather's link
+                        "                                   <li>%s"
+                        "                                                        </li>\n"  // Grandmother's link
+                        "                               </ul>\n"
+                        "                            </li>\n",
+                        motherLink, grandpaLink, grandmaLink
+                );
+
+                free(motherLink);
+                free(grandpaLink);
+                free(grandmaLink);
+            }
+        }
+        fputs(line, output_file);
     }
-    if (p->p_mother) {
-        char *motherLink = linkHtml(p->p_mother->id, p->p_mother->firstname, p->p_mother->lastname);
-        char *grandpaLink = p->p_mother->p_father ? linkHtml(p->p_mother->p_father->id, p->p_mother->p_father->firstname, p->p_mother->p_father->lastname) : strdup("<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
-        char *grandmaLink = p->p_mother->p_mother ? linkHtml(p->p_mother->p_mother->id, p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname) : strdup("<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
-
-        fprintf(output_file,
-                "<li>\n"
-                "   %s\n"  // Mother's link
-                "   <ul>\n"
-                "       <li>%s</li>\n"  // Grandfather's link
-                "       <li>%s</li>\n"  // Grandmother's link
-                "   </ul>\n"
-                "</li>\n",
-                motherLink, grandpaLink, grandmaLink
-        );
-
-        free(motherLink);
-        free(grandpaLink);
-        free(grandmaLink);
-    }
-    fprintf(output_file,
-            "                        </ul>\n"
-            "                    </li>\n"
-            "                </ul>\n"
-            "            </div>\n"
-            "        </main>\n"
-            "    </body>\n"
-            "</html>\n"
-    );
     fclose(output_file);
 }
 
