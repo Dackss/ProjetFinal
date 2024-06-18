@@ -135,7 +135,6 @@ main {
 
 .tree li a:hover {
     background: rgba(255, 249, 144, 0.51);
-    color: #000;
     border: 3px solid #fff990;
 }
 
