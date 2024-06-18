@@ -155,7 +155,7 @@ void create_info_html(const char *output_filename, Person *p) {
             "       <div id='family'> %s </div>\n"
             "</div>\n"
             "<div id='global'>\n"
-            "        <h1>Précision sur %s %s</h1>\n"
+            "        <h1>Détail sur %s %s</h1>\n"
             "        <div id='person'></div>\n"
             "        <div id='info'>\n"
             "        <ul>\n"
