@@ -154,6 +154,7 @@ void create_info_html(const char *output_filename, Person *p) {
             "       <div id='business'> Family Trees </div>\n"
             "       <div id='family'> %s </div>\n"
             "</div>\n"
+            "<img src=../tree2.png>\n"
             "<div id='global'>\n"
             "        <h1>Détail sur %s %s</h1>\n"
             "        <div id='person'></div>\n"
