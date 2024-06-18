@@ -130,7 +130,12 @@ void create_info_html(const char *output_filename, Person *p) {
             "        <title>Information de la Personne</title>\n"
             "    </head>\n"
             "    <body>\n"
-            "        <h1>Informations sur %s %s</h1>\n"
+            "<div id='header'>\n"
+            "       <div id='business'> Family trees </div>\n"
+            "       <div id='family'> %s </div>\n"
+            "</div>\n"
+            "<div id='global'>\n"
+            "        <h1>Précision sur %s %s</h1>\n"
             "        <div id='person'></div>\n"
             "        <div id='info'>\n"
             "        <ul>\n"
@@ -138,6 +143,7 @@ void create_info_html(const char *output_filename, Person *p) {
             "            <li>Nom : %s</li>\n"
             "            <li>Anniversaire : %02d/%02d/%04d</li>\n"
             "            <li>Lieu de naissance : %s</li>\n",
+            p->lastname,
             p->firstname, p->lastname, p->firstname, p->lastname,
             p->birthday, p->birthmonth, p->birthyear, p->region_naissance
     );
@@ -182,6 +188,7 @@ void create_info_html(const char *output_filename, Person *p) {
     fprintf(output_file,
             "        </ul>\n"
             "            </div>\n"
+            "           </div>\n"
             "    </body>\n"
             "</html>"
     );
