@@ -40,7 +40,7 @@ void update_html(const char *template_file, const char *output_filename, Person 
             fprintf(output_file, "        <title>Famille %s</title>", getFamilyName(p));
         }
         if (strstr(line, "<!-- Famille 2 -->")) {
-            fprintf(output_file, "                <h1>Famille : %s</h1>", getFamilyName(p));
+            fprintf(output_file, "                <h1 class=\"family-name\">Famille : %s</h1>", getFamilyName(p));
         }
         if (strstr(line, "<!-- Generation  -->")) {
             fprintf(output_file,
