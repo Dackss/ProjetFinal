@@ -39,9 +39,13 @@ body {
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(232,218,37,1) 51%, rgba(196,143,2,1) 100%);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
-    margin: 2.5%;
-    font-size: 18px;
+    margin: 0.5%;
+    font-size: 1.5rem;
 }
 #business{
-    margin: 2.5%;
+    margin: 0.5%;
+    border: 3px solid #ccc;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 1.5rem;
 }
