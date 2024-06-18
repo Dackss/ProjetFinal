@@ -116,6 +116,11 @@ void update_html(const char *template_file, const char *output_filename, Person 
 void create_info_html(const char *output_filename, Person *p) {
     FILE *output_file = fopen(output_filename, "w");
 
+    if (!output_file) {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier %s\n", output_filename);
+        return;
+    }
+
     fprintf(output_file,
             "<!DOCTYPE html>\n"
             "<html lang=\"fr\">\n"
@@ -127,12 +132,14 @@ void create_info_html(const char *output_filename, Person *p) {
             "        <h1>Informations sur %s %s</h1>\n"
             "        <ul>\n"
             "            <li>Prénom : %s</li>\n"
-            "            <li>Nom : %s</li>\n",
-            p->firstname, p->lastname, p->firstname, p->lastname
+            "            <li>Nom : %s</li>\n"
+            "            <li>Anniversaire : %02d/%02d/%04d</li>\n"
+            "            <li>Lieu de naissance : %s</li>\n",
+            p->firstname, p->lastname, p->firstname, p->lastname,
+            p->birthday, p->birthmonth, p->birthyear, p->region_naissance
     );
 
-    if (p->p_father)
-    {
+    if (p->p_father){
         fprintf(output_file,
                 "            <li>Le père : %s %s</li>\n",
                 p->p_father->firstname, p->p_father->lastname
@@ -145,8 +152,7 @@ void create_info_html(const char *output_filename, Person *p) {
         );
     }
 
-    if (p->p_mother)
-    {
+    if (p->p_mother){
         fprintf(output_file,
                 "            <li>La mère : %s %s</li>\n",
                 p->p_mother->firstname, p->p_mother->lastname
@@ -158,7 +164,18 @@ void create_info_html(const char *output_filename, Person *p) {
                 "            <li>La mère : Inconnu</li>\n"
         );
     }
-
+    if (p->children && p->num_children > 0) {
+        for (int i = 0; i < p->num_children; ++i) {
+            fprintf(output_file,
+                    "                <li>L'enfant  : %s %s</li>\n",
+                    p->children[i]->firstname, p->children[i]->lastname
+            );
+        }
+    } else {
+        fprintf(output_file,
+                "            <li>Les enfants : Inconnus</li>\n"
+        );
+    }
     fprintf(output_file,
             "        </ul>\n"
             "    </body>"
