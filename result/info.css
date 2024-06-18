@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #003306 url("bg.svg") no-repeat center;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+#person{
+    border-radius: 10%;
+    border : 2px solid black;
+    width: 200px;
+    height: 200px;
+}
