@@ -4,9 +4,21 @@
 #include "htmlexport.h"
 #include "advanced.h"
 
-char* linkHtml(int id, const char *firstname, const char *lastname) {
+char* linkHtml(Person *person, int who) {
     char *link = (char*) malloc(255 * sizeof(char));
-    sprintf(link, "<a href=\"../info/info_person_%d.html\"><img src=\"../img-homme.jpg\" alt=\"%s %s\">%s %s</a>\n", id, firstname, lastname, firstname, lastname);
+    const char *imgSrc;
+
+    // Déterminer l'image en fonction du paramètre who
+    if (who == 1) {
+        imgSrc = "../img-homme.jpg";
+    } else if (who == 2) {
+        imgSrc = "../img-femme.jpeg";
+    } else {
+        imgSrc = "../img-inconnu.jpg";
+    }
+
+    sprintf(link, "<a href=\"../info/info_person_%d.html\"><img src=\"%s\" alt=\"%s %s\">%s %s</a>\n",
+            person->id, imgSrc, person->firstname, person->lastname, person->firstname, person->lastname);
     return link;
 }
 
@@ -19,7 +31,7 @@ void export_html(Population *population) {
         if (population->persons[i].id != 0) {
             char filename[50];
             sprintf(filename, "../result/trees/tree_person_%d.html", population->persons[i].id);
-            update_html("../result/template_trees.html",filename, &population->persons[i]);
+            update_html("../result/template_trees.html", filename, &population->persons[i]);
             sprintf(filename, "../result/info/info_person_%d.html", population->persons[i].id);
             create_info_html(filename, &population->persons[i]);
         }
@@ -29,14 +41,14 @@ void export_html(Population *population) {
 void update_html(const char *template_file, const char *output_filename, Person *p) {
     FILE *output_file = fopen(output_filename, "w");
     FILE *template = fopen(template_file, "r");
-    if (!(template || output_file)) {
+    if (!(template && output_file)) {
         printf("Fichier pas ouvert");
         return;
     }
     int numSiblings;
     Person **siblings = getSiblings(p, &numSiblings);
 
-    char *personLink = linkHtml(p->id, p->firstname, p->lastname);
+    char *personLink = linkHtml(p, 1); // 0 pour l'inconnu ou la personne elle-même
     char line[1000];
     while (fgets(line, sizeof(line), template)) {
         if (strstr(line, "<!-- Famille -->")) {
@@ -50,12 +62,12 @@ void update_html(const char *template_file, const char *output_filename, Person 
                     "                <ul>\n"
                     "                    <li>\n"
                     "                        <div class=\"children\">\n"
-                    "                           %s\n",  // Ajoute en dessous les frères et soeur
+                    "                           %s\n",  // Ajoute en dessous les frères et soeurs
                     personLink
             );
             for (int j = 0; j < numSiblings; j++) {
                 Person *sibling = siblings[j];
-                char *siblingLink = linkHtml(sibling->id, sibling->firstname, sibling->lastname);
+                char *siblingLink = linkHtml(sibling, 1); // 0 pour les frères et soeurs
                 fprintf(output_file, "                           %s\n", siblingLink);
                 free(siblingLink);
             }
@@ -63,12 +75,11 @@ void update_html(const char *template_file, const char *output_filename, Person 
             fprintf(output_file, "                <ul>\n");
             free(personLink);
             if (p->p_father) {
-                char *fatherLink = linkHtml(p->p_father->id, p->p_father->firstname, p->p_father->lastname);
+                char *fatherLink = linkHtml(p->p_father, 1);
 
                 char *grandpaLink;
                 if (p->p_father->p_father) {
-                    grandpaLink = linkHtml(p->p_father->p_father->id, p->p_father->p_father->firstname,
-                                           p->p_father->p_father->lastname);
+                    grandpaLink = linkHtml(p->p_father->p_father, 1);
                 } else {
                     grandpaLink = malloc(
                             strlen("<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
@@ -77,8 +88,7 @@ void update_html(const char *template_file, const char *output_filename, Person 
 
                 char *grandmaLink;
                 if (p->p_father->p_mother) {
-                    grandmaLink = linkHtml(p->p_father->p_mother->id, p->p_father->p_mother->firstname,
-                                           p->p_father->p_mother->lastname);
+                    grandmaLink = linkHtml(p->p_father->p_mother, 2);
                 } else {
                     grandmaLink = malloc(
                             strlen("<a href=\"#\"><img src=\"../img-femme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
@@ -103,11 +113,11 @@ void update_html(const char *template_file, const char *output_filename, Person 
                 free(grandmaLink);
             }
             if (p->p_mother) {
-                char *motherLink = linkHtml(p->p_mother->id, p->p_mother->firstname, p->p_mother->lastname);
+                char *motherLink = linkHtml(p->p_mother, 2);
 
                 char *grandpaLink;
                 if(p->p_mother->p_father) {
-                    grandpaLink = linkHtml(p->p_mother->p_father->id, p->p_mother->p_father->firstname, p->p_mother->p_father->lastname);
+                    grandpaLink = linkHtml(p->p_mother->p_father, 1);
                 } else {
                     grandpaLink = malloc(strlen("<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
                     strcpy(grandpaLink, "<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>");
@@ -115,10 +125,10 @@ void update_html(const char *template_file, const char *output_filename, Person 
 
                 char *grandmaLink;
                 if(p->p_mother->p_mother) {
-                    grandmaLink = linkHtml(p->p_mother->p_mother->id, p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname);
+                    grandmaLink = linkHtml(p->p_mother->p_mother, 2);
                 } else {
-                    grandmaLink = malloc(strlen("<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
-                    strcpy(grandmaLink, "<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>");
+                    grandmaLink = malloc(strlen("<a href=\"#\"><img src=\"../img-femme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
+                    strcpy(grandmaLink, "<a href=\"#\"><img src=\"../img-femme.jpg\" alt=\"Inconnu\">Inconnu</a>");
                 }
 
                 fprintf(output_file,
@@ -185,9 +195,7 @@ void create_info_html(const char *output_filename, Person *p) {
                 "            <li>Le père : %s %s</li>\n",
                 p->p_father->firstname, p->p_father->lastname
         );
-    }
-    else
-    {
+    } else {
         fprintf(output_file,
                 "            <li>Le père : Inconnu</li>\n"
         );
@@ -198,9 +206,7 @@ void create_info_html(const char *output_filename, Person *p) {
                 "            <li>La mère : %s %s</li>\n",
                 p->p_mother->firstname, p->p_mother->lastname
         );
-    }
-    else
-    {
+    } else {
         fprintf(output_file,
                 "            <li>La mère : Inconnu</li>\n"
         );
