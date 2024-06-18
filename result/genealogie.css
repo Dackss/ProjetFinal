@@ -136,10 +136,10 @@ main {
 }
 
 .arbre {
-    position: absolute;
+    position: fixed;
     z-index: -1;
-    width: 50%;
-    top: 0;
+    width: 55%;
+    bottom: -15%;
     right: 0;
     opacity: 0.8;
     filter: blur(0.5px);
@@ -252,4 +252,14 @@ main {
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.terre {
+    position: fixed;
+    bottom: -20%;
+    width: 100%;
+    height: 50%;
+    background: url("herbe.svg") no-repeat center bottom;
+    background-size: cover;
+    z-index: -10;
 }
