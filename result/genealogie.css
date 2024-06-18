@@ -154,7 +154,7 @@ main {
     padding: 5px;
 }
 
-.children::after {
+.children:not(.no-after)::after {
     content: "";
     display: block;
     width: 40%;
@@ -163,4 +163,60 @@ main {
     left: 30%;
     right: 30%;
     bottom: 0;
+}
+
+.children.condition-verified::after {
+    content: "";
+    display: block;
+    width: 20%;
+    border-bottom: 3px solid #ccc;
+    position: absolute;
+    left: 40%;
+    right: 30%;
+    bottom: 0;
+}
+
+.button-children {
+    border: 3px solid #fff990;
+    padding: 10px 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    display: inline-block;
+    border-radius: 5px;
+    background: rgba(192, 201, 192, 0.37);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.button-children:hover {
+    background: rgba(255, 249, 144, 0.51);
+    border: 3px solid #fff990;
+    transform: scale(1.05);
+}
+
+.menu-children {
+    position: fixed;
+    top: 15%;
+    left: 15%;
+    width: 65%;
+    height: 65%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: auto;
+    z-index: 1000;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
