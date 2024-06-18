@@ -2,10 +2,11 @@
 #include "person.h"
 #include "population.h"
 #include "htmlexport.h"
+#include "advanced.h"
 
 char* linkHtml(int id, const char *firstname, const char *lastname) {
     char *link = (char*) malloc(255 * sizeof(char));
-    sprintf(link, "<a href=\"../info/info_person_%d.html\"><img src=\"../img.jpg\" alt=\"%s %s\">%s %s</a>\n", id, firstname, lastname, firstname, lastname);
+    sprintf(link, "<a href=\"../info/info_person_%d.html\"><img src=\"../img-homme.jpg\" alt=\"%s %s\">%s %s</a>\n", id, firstname, lastname, firstname, lastname);
     return link;
 }
 
@@ -32,6 +33,8 @@ void update_html(const char *template_file, const char *output_filename, Person 
         printf("Fichier pas ouvert");
         return;
     }
+    int numSiblings;
+    Person **siblings = getSiblings(p, &numSiblings);
 
     char *personLink = linkHtml(p->id, p->firstname, p->lastname);
     char line[1000];
@@ -46,10 +49,16 @@ void update_html(const char *template_file, const char *output_filename, Person 
             fprintf(output_file,
                     "                <ul>\n"
                     "                    <li>\n"
-                    "                        %s\n"  // Remplace par le lien de la personne
-                    "                        <ul>\n",
+                    "                        %s\n",  // Ajoute en dessous les frères et soeur
                     personLink
             );
+            for (int j = 0; j < numSiblings; j++) {
+                Person *sibling = siblings[j];
+                char *siblingLink = linkHtml(sibling->id, sibling->firstname, sibling->lastname);
+                fprintf(output_file, "                        %s\n", siblingLink);
+                free(siblingLink);
+            }
+            fprintf(output_file, "                <ul>\n");
             free(personLink);
             if (p->p_father) {
                 char *fatherLink = linkHtml(p->p_father->id, p->p_father->firstname, p->p_father->lastname);
