@@ -11,6 +11,7 @@
 
 #define MAX_CHILDREN 10
 
+//This structure brings together all the important elements of a person
 typedef struct person {
     int id;
     int father_id;

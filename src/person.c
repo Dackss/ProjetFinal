@@ -4,6 +4,7 @@
 
 #include "../include/person.h"
 
+//Initializing the person struct
 Person* initPerson(char* csvline) {
     Person *p = (Person *)malloc(sizeof(Person));
     if (p == NULL) {
@@ -11,6 +12,7 @@ Person* initPerson(char* csvline) {
         exit(EXIT_FAILURE);
     }
 
+//Strtok => extract the csv lines then copied to initialize the struc
     char *token;
     token = strtok(csvline, ",");
     if (token != NULL) p->id = atoi(token);
