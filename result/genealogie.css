@@ -152,6 +152,18 @@ main {
 .children {
     position: relative;
     padding: 5px;
+    display: flex;
+    flex-direction: row; /* Ajoutez cette ligne pour aligner les enfants horizontalement */
+    justify-content: center;
+    align-items: center;
+}
+
+.children > * {
+    margin: 5px;
+    display: flex;
+    flex-direction: column; /* Assurez-vous que chaque enfant est une colonne */
+    justify-content: center;
+    align-items: center;
 }
 
 .children:not(.no-after)::after {
@@ -176,17 +188,38 @@ main {
     bottom: 0;
 }
 
+.button-children-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .button-children {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 3px solid #fff990;
-    padding: 10px 10px;
+    padding: 10px;
     text-decoration: none;
     color: white;
     font-size: 18px;
-    display: inline-block;
     border-radius: 5px;
     background: rgba(192, 201, 192, 0.37);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+}
+
+.button-children img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 5px;
+    border-radius: 20%;
+}
+
+.button-children span {
+    text-align: center;
 }
 
 .button-children:hover {
@@ -194,18 +227,18 @@ main {
     border: 3px solid #fff990;
     transform: scale(1.05);
 }
-
 .menu-children {
     position: fixed;
-    top: 15%;
-    left: 15%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 65%;
     height: 65%;
     background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: start;
+    align-content: center;
     flex-direction: row;
     flex-wrap: wrap;
     padding: 20px;

@@ -29,11 +29,19 @@ window.onload = function() {
                 newElement.style.display = 'none';
             });
 
+            let buttonContainer = document.createElement('div');
+            buttonContainer.className = 'button-children-container';
             let button = document.createElement('button');
             button.className = 'button-children';
-            button.innerHTML = 'Children';
+            let img = document.createElement('img');
+            img.src = '../img-homme.jpg';
+            let span = document.createElement('span');
+            span.textContent = 'Children';
+            button.appendChild(img);
+            button.appendChild(span);
+            buttonContainer.appendChild(button);
 
-            firstElement.parentNode.insertBefore(button, firstElement.nextSibling);
+            firstElement.parentNode.insertBefore(buttonContainer, firstElement.nextSibling);
             firstElement.parentElement.classList.add('condition-verified');
 
             for(let j = 1; j < links.length; j++) {
@@ -44,7 +52,7 @@ window.onload = function() {
 
             button.addEventListener('click', function() {
                 if (newElement.style.display === 'none') {
-                    newElement.style.display = 'block';
+                    newElement.style.display = 'flex';
                 } else {
                     newElement.style.display = 'none';
                 }
