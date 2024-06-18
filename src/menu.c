@@ -141,6 +141,9 @@ void printAncestors(Population population, Person *person) {
             }
         }
         // Free the memory allocated for the ancestors array
+        for (int i = 0; i < pow(2, GENERATIONS + 1) - 1; i++) {
+            free(ancestors[i]);
+        }
         free(ancestors);
     }
 }

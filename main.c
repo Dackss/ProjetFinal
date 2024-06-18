@@ -121,5 +121,12 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Unknown command: %s\n", command);
         return 1;
     }
+    free(global_population.persons);
     return 0;
 }
+
+/*int main() {
+    link_population_once();
+    export_html(&global_population);
+    free(global_population.persons);
+}*/

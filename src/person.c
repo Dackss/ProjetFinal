@@ -41,5 +41,7 @@ Person* initPerson(char* csvline) {
     token = strtok(NULL, ",");
     if (token != NULL) strncpy(p->region_naissance, token, sizeof(p->region_naissance) - 1);
 
+    p->gender = 0;
+
     return p;
 }

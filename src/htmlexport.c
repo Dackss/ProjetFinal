@@ -39,6 +39,10 @@ char* getFamilyName(Person *p) {
     return p->lastname;
 }
 
+void free_person(Person *p) {
+    free(p->children);
+}
+
 void export_html(Population *population) {
     for (int i = 0; i < population->size; i++) {
         if (population->persons[i].id != 0) {
@@ -46,7 +50,7 @@ void export_html(Population *population) {
             sprintf(filename, "../result/trees/tree_person_%d.html", population->persons[i].id);
             update_html("../result/template_trees.html", filename, &population->persons[i]);
             sprintf(filename, "../result/info/info_person_%d.html", population->persons[i].id);
-            create_info_html(filename, &population->persons[i]);
+            free_person(&population->persons[i]);
         }
     }
 }
@@ -54,8 +58,8 @@ void export_html(Population *population) {
 void update_html(const char *template_file, const char *output_filename, Person *p) {
     FILE *output_file = fopen(output_filename, "w");
     FILE *template = fopen(template_file, "r");
-    if (!(template && output_file)) {
-        printf("Fichier pas ouvert");
+    if (!output_file) {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier %s\n", output_filename);
         return;
     }
     int numSiblings;
@@ -170,6 +174,7 @@ void update_html(const char *template_file, const char *output_filename, Person 
         }
         fputs(line, output_file);
     }
+    free(siblings);
     fclose(output_file);
 }
 
@@ -207,7 +212,7 @@ void create_info_html(const char *output_filename, Person *p) {
             p->firstname, p->lastname, imgName(p), p->firstname, p->lastname,
             p->birthday, p->birthmonth, p->birthyear, p->region_naissance
     );
-
+    free(imgName(p));
     if (p->p_father){
         fprintf(output_file,
                 "            <li>Le père : %s %s</li>\n",
