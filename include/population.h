@@ -11,10 +11,11 @@
 
 #define CAPACITY 201
 
+//struct for population
 typedef struct{
     Person* persons;
-    int size;        // Nombre actuel de personnes dans la population
-    int capacity;    // Taille maximale du tableau
+    int size;        // Current number of people in the population
+    int capacity;    // Maximum size of the array
 } Population;
 
 void insert(Population * p, int key, Person *data);
