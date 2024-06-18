@@ -53,14 +53,26 @@ void update_html(const char *template_file, const char *output_filename, Person 
             free(personLink);
             if (p->p_father) {
                 char *fatherLink = linkHtml(p->p_father->id, p->p_father->firstname, p->p_father->lastname);
-                char *grandpaLink = p->p_father->p_father ? linkHtml(p->p_father->p_father->id,
-                                                                     p->p_father->p_father->firstname,
-                                                                     p->p_father->p_father->lastname) : strdup(
-                        "<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
-                char *grandmaLink = p->p_father->p_mother ? linkHtml(p->p_father->p_mother->id,
-                                                                     p->p_father->p_mother->firstname,
-                                                                     p->p_father->p_mother->lastname) : strdup(
-                        "<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
+
+                char *grandpaLink;
+                if (p->p_father->p_father) {
+                    grandpaLink = linkHtml(p->p_father->p_father->id, p->p_father->p_father->firstname,
+                                           p->p_father->p_father->lastname);
+                } else {
+                    grandpaLink = malloc(
+                            strlen("<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
+                    strcpy(grandpaLink, "<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>");
+                }
+
+                char *grandmaLink;
+                if (p->p_father->p_mother) {
+                    grandmaLink = linkHtml(p->p_father->p_mother->id, p->p_father->p_mother->firstname,
+                                           p->p_father->p_mother->lastname);
+                } else {
+                    grandmaLink = malloc(
+                            strlen("<a href=\"#\"><img src=\"../img-femme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
+                    strcpy(grandmaLink, "<a href=\"#\"><img src=\"../img-femme.jpg\" alt=\"Inconnu\">Inconnu</a>");
+                }
 
                 fprintf(output_file,
                         "                            <li>\n"
@@ -81,14 +93,22 @@ void update_html(const char *template_file, const char *output_filename, Person 
             }
             if (p->p_mother) {
                 char *motherLink = linkHtml(p->p_mother->id, p->p_mother->firstname, p->p_mother->lastname);
-                char *grandpaLink = p->p_mother->p_father ? linkHtml(p->p_mother->p_father->id,
-                                                                     p->p_mother->p_father->firstname,
-                                                                     p->p_mother->p_father->lastname) : strdup(
-                        "<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
-                char *grandmaLink = p->p_mother->p_mother ? linkHtml(p->p_mother->p_mother->id,
-                                                                     p->p_mother->p_mother->firstname,
-                                                                     p->p_mother->p_mother->lastname) : strdup(
-                        "<a href=\"#\"><img src=\"../img.jpg\" alt=\"Inconnu\">Inconnu</a>");
+
+                char *grandpaLink;
+                if(p->p_mother->p_father) {
+                    grandpaLink = linkHtml(p->p_mother->p_father->id, p->p_mother->p_father->firstname, p->p_mother->p_father->lastname);
+                } else {
+                    grandpaLink = malloc(strlen("<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
+                    strcpy(grandpaLink, "<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>");
+                }
+
+                char *grandmaLink;
+                if(p->p_mother->p_mother) {
+                    grandmaLink = linkHtml(p->p_mother->p_mother->id, p->p_mother->p_mother->firstname, p->p_mother->p_mother->lastname);
+                } else {
+                    grandmaLink = malloc(strlen("<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
+                    strcpy(grandmaLink, "<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>");
+                }
 
                 fprintf(output_file,
                         "                            <li>\n"
