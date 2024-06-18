@@ -28,7 +28,6 @@ main {
     align-items: center;
 }
 
-
 .header {
     display: flex;
     flex-direction: row;
@@ -47,7 +46,7 @@ main {
 }
 
 .family-name {
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(232,218,37,1) 51%, rgba(196,143,2,1) 100%);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(232, 218, 37, 1) 51%, rgba(196, 143, 2, 1) 100%);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }
@@ -65,24 +64,29 @@ main {
     padding: 25px 15px 0 25px;
 }
 
-.tree li::before, .tree li::after {
+.tree li::before,
+.tree li::after {
     content: '';
     position: absolute;
     top: 0;
-    right: 50%;
     border-top: 3px solid #ccc;
     width: 50%;
     height: 20px;
 }
 
+.tree li::before {
+    right: 50%;
+}
+
 .tree li::after {
-    right: auto;
     left: 50%;
     border-left: 3px solid #ccc;
 }
 
-.tree li:only-child::after, .tree li:only-child::before,
-.tree li:first-child::before, .tree li:last-child::after {
+.tree li:only-child::after,
+.tree li:only-child::before,
+.tree li:first-child::before,
+.tree li:last-child::after {
     display: none;
 }
 
@@ -105,23 +109,39 @@ main {
     height: 40px;
 }
 
-.tree li a {
+.tree li a,
+.button-children {
     border: 3px solid #fff990;
-    padding: 10px 10px;
+    padding: 10px;
     text-decoration: none;
     color: white;
     font-size: 18px;
-    display: inline-block;
     border-radius: 5px;
     background: rgba(192, 201, 192, 0.37);
     transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
 }
 
-.tree li a img {
-    display: block;
-    margin: 0 50px 0;
-    width: 100px;
-    height: 100px;
+.button-children {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    cursor: pointer;
+}
+
+.tree li a {
+    max-width: 150px;
+    margin: auto;
+}
+
+.tree li a img,
+.button-children img {
+    margin-bottom: 10px;
+    width: 80px;
+    height: 80px;
     border-radius: 20%;
 }
 
@@ -129,7 +149,8 @@ main {
     margin: 0;
 }
 
-.tree li a:hover {
+.tree li a:hover,
+.button-children:hover {
     background: rgba(255, 249, 144, 0.51);
     border: 3px solid #fff990;
     transform: scale(1.05);
@@ -145,15 +166,11 @@ main {
     filter: blur(0.5px);
 }
 
-.children > * {
-    margin: 5px;
-}
-
 .children {
     position: relative;
     padding: 5px;
     display: flex;
-    flex-direction: row; /* Ajoutez cette ligne pour aligner les enfants horizontalement */
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
@@ -161,7 +178,7 @@ main {
 .children > * {
     margin: 5px;
     display: flex;
-    flex-direction: column; /* Assurez-vous que chaque enfant est une colonne */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -188,45 +205,6 @@ main {
     bottom: 0;
 }
 
-.button-children-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.button-children {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 3px solid #fff990;
-    padding: 10px;
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    border-radius: 5px;
-    background: rgba(192, 201, 192, 0.37);
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.button-children img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 5px;
-    border-radius: 20%;
-}
-
-.button-children span {
-    text-align: center;
-}
-
-.button-children:hover {
-    background: rgba(255, 249, 144, 0.51);
-    border: 3px solid #fff990;
-    transform: scale(1.05);
-}
 .menu-children {
     position: fixed;
     top: 50%;
@@ -234,7 +212,7 @@ main {
     transform: translate(-50%, -50%);
     width: 65%;
     height: 65%;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -252,6 +230,9 @@ main {
     position: absolute;
     top: 10px;
     right: 10px;
+    padding: 5px;
+    width: 100px;
+    cursor: pointer;
 }
 
 .terre {
@@ -262,4 +243,9 @@ main {
     background: url("herbe.svg") no-repeat center bottom;
     background-size: cover;
     z-index: -10;
+}
+
+.children.condition-verified > a,
+.children.no-after.menu-children > a {
+    margin: 5px;
 }
