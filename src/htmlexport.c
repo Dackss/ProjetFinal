@@ -126,10 +126,13 @@ void create_info_html(const char *output_filename, Person *p) {
             "<html lang=\"fr\">\n"
             "    <head>\n"
             "        <meta charset=\"UTF-8\">\n"
+            "<link rel='stylesheet' href='../info.css'\n>"
             "        <title>Information de la Personne</title>\n"
             "    </head>\n"
             "    <body>\n"
             "        <h1>Informations sur %s %s</h1>\n"
+            "        <div id='person'></div>\n"
+            "        <div id='info'>\n"
             "        <ul>\n"
             "            <li>Prénom : %s</li>\n"
             "            <li>Nom : %s</li>\n"
@@ -178,7 +181,8 @@ void create_info_html(const char *output_filename, Person *p) {
     }
     fprintf(output_file,
             "        </ul>\n"
-            "    </body>"
+            "            </div>\n"
+            "    </body>\n"
             "</html>"
     );
 
