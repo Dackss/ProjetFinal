@@ -106,7 +106,7 @@ main {
 }
 
 .tree li a {
-    border: 3px solid #ccc;
+    border: 3px solid #fff990;
     padding: 10px 10px;
     text-decoration: none;
     color: white;
@@ -134,9 +134,9 @@ main {
 }
 
 .tree li a:hover {
-    background: #c8e4f8;
+    background: rgba(255, 249, 144, 0.51);
     color: #000;
-    border: 3px solid #94a0b4;
+    border: 3px solid #fff990;
 }
 
 .arbre {
