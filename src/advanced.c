@@ -4,6 +4,7 @@
 
 #include "../include/advanced.h"
 
+//Function taking into account fraternity
 Person** getSiblings(Person* person, int* count) {
     Person** siblings = malloc(CAPACITY * sizeof(Person *));
     *count = 0;
@@ -44,6 +45,7 @@ Person** getSiblings(Person* person, int* count) {
     return siblings;
 }
 
+//Function taking into account ancestors
 Person** ancestorsPersons(Population population, Person *person) {
     // Calculate the size of the array based on the number of generations
     int array_size = pow(2, GENERATIONS + 1) - 1;
