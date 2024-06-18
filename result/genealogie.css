@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
-    background: #003306 url("bg.svg") no-repeat center;
+    background: #003306 url("bg.svg") no-repeat fixed center;
     background-size: cover;
     margin: 0;
     padding: 0;
@@ -117,10 +117,6 @@ main {
     transition: all 0.3s ease-in-out;
 }
 
-.tree li a:hover {
-    transform: scale(1.1);
-}
-
 .tree li a img {
     display: block;
     margin: 0 50px 0;
@@ -136,6 +132,7 @@ main {
 .tree li a:hover {
     background: rgba(255, 249, 144, 0.51);
     border: 3px solid #fff990;
+    transform: scale(1.05);
 }
 
 .arbre {
@@ -146,4 +143,24 @@ main {
     right: 0;
     opacity: 0.8;
     filter: blur(0.5px);
+}
+
+.children > * {
+    margin: 5px;
+}
+
+.children {
+    position: relative;
+    padding: 5px;
+}
+
+.children::after {
+    content: "";
+    display: block;
+    width: 40%;
+    border-bottom: 3px solid #ccc;
+    position: absolute;
+    left: 30%;
+    right: 30%;
+    bottom: 0;
 }

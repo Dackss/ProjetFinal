@@ -49,15 +49,17 @@ void update_html(const char *template_file, const char *output_filename, Person 
             fprintf(output_file,
                     "                <ul>\n"
                     "                    <li>\n"
-                    "                        %s\n",  // Ajoute en dessous les frères et soeur
+                    "                        <div class=\"children\">\n"
+                    "                           %s\n",  // Ajoute en dessous les frères et soeur
                     personLink
             );
             for (int j = 0; j < numSiblings; j++) {
                 Person *sibling = siblings[j];
                 char *siblingLink = linkHtml(sibling->id, sibling->firstname, sibling->lastname);
-                fprintf(output_file, "                        %s\n", siblingLink);
+                fprintf(output_file, "                           %s\n", siblingLink);
                 free(siblingLink);
             }
+            fprintf(output_file,"                        </div>\n");
             fprintf(output_file, "                <ul>\n");
             free(personLink);
             if (p->p_father) {
