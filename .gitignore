@@ -7,4 +7,5 @@ cmake-build-debug/Makefile
 cmake-build-debug/ProjetFinal.cbp
 cmake-build-debug/ProjetFinal
 
-result/*.html
+result/trees/*.html
+result/info/*.html

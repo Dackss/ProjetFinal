@@ -17,7 +17,7 @@ int is_population_linked = 0;
 // As indicated in the name, this function is used to link the population once
 void link_population_once() {
     if (!is_population_linked) {
-        global_population = readCSV("../resources/40.csv");
+        global_population = readCSV("../resources/200.csv");
         linkPopulation(&global_population);
         is_population_linked = 1;
     }
@@ -111,10 +111,6 @@ int main(int argc, char *argv[]) {
 
 
     } else if (strcmp(command, "export_html") == 0) {
-        if (argc < 3) {
-            fprintf(stderr, "Usage: %s export_html <filename>\n", argv[0]);
-            return 1;
-        }
         clock_t start = clock();
         export_html(&global_population);
         clock_t end = clock();
