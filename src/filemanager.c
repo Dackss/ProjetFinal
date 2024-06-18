@@ -4,6 +4,7 @@
 
 #include "../include/filemanager.h"
 
+//Initialize the population by introducing new person from the lines read
 Population readCSV(const char *filename) {
     FILE *file = fopen(filename, "r");
     if (!file) {
