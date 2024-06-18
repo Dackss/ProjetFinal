@@ -4,6 +4,7 @@ window.onload = function() {
         if(links[i].innerText.includes('-')) {
             links[i].innerText = 'Inconnu';
             links[i].href = '#';
+            links[i].style.display = 'none';
         }
     }
 }
