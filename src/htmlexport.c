@@ -15,11 +15,24 @@ char* linkHtml(Person *person, int who) {
         imgSrc = "../img-femme.jpeg";
     } else {
         imgSrc = "../img-inconnu.jpg";
+        person->gender = 0;
     }
 
     sprintf(link, "<a href=\"../info/info_person_%d.html\"><img src=\"%s\" alt=\"%s %s\">%s %s</a>\n",
             person->id, imgSrc, person->firstname, person->lastname, person->firstname, person->lastname);
     return link;
+}
+
+char* imgName(Person *person) {
+    char *img = (char*) malloc(150 * sizeof(char));
+    if (person->gender == 1) {
+        sprintf(img, "../img-homme.jpg");
+    } if (person->gender == 2) {
+        sprintf(img, "../img-femme.jpeg");
+    } else {
+        sprintf(img, "../img-homme.jpg");
+    }
+    return img;
 }
 
 char* getFamilyName(Person *p) {
@@ -76,10 +89,12 @@ void update_html(const char *template_file, const char *output_filename, Person 
             free(personLink);
             if (p->p_father) {
                 char *fatherLink = linkHtml(p->p_father, 1);
+                p->p_father->gender = 1;
 
                 char *grandpaLink;
                 if (p->p_father->p_father) {
                     grandpaLink = linkHtml(p->p_father->p_father, 1);
+                    p->p_father->p_father->gender = 1;
                 } else {
                     grandpaLink = malloc(
                             strlen("<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
@@ -89,6 +104,7 @@ void update_html(const char *template_file, const char *output_filename, Person 
                 char *grandmaLink;
                 if (p->p_father->p_mother) {
                     grandmaLink = linkHtml(p->p_father->p_mother, 2);
+                    p->p_father->p_mother->gender = 2;
                 } else {
                     grandmaLink = malloc(
                             strlen("<a href=\"#\"><img src=\"../img-femme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
@@ -114,10 +130,12 @@ void update_html(const char *template_file, const char *output_filename, Person 
             }
             if (p->p_mother) {
                 char *motherLink = linkHtml(p->p_mother, 2);
+                p->p_mother->gender = 2;
 
                 char *grandpaLink;
                 if(p->p_mother->p_father) {
                     grandpaLink = linkHtml(p->p_mother->p_father, 1);
+                    p->p_mother->p_father->gender = 1;
                 } else {
                     grandpaLink = malloc(strlen("<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
                     strcpy(grandpaLink, "<a href=\"#\"><img src=\"../img-homme.jpg\" alt=\"Inconnu\">Inconnu</a>");
@@ -126,6 +144,7 @@ void update_html(const char *template_file, const char *output_filename, Person 
                 char *grandmaLink;
                 if(p->p_mother->p_mother) {
                     grandmaLink = linkHtml(p->p_mother->p_mother, 2);
+                    p->p_mother->p_mother->gender = 2;
                 } else {
                     grandmaLink = malloc(strlen("<a href=\"#\"><img src=\"../img-femme.jpg\" alt=\"Inconnu\">Inconnu</a>") + 1);
                     strcpy(grandmaLink, "<a href=\"#\"><img src=\"../img-femme.jpg\" alt=\"Inconnu\">Inconnu</a>");
@@ -173,12 +192,11 @@ void create_info_html(const char *output_filename, Person *p) {
             "    <body>\n"
             "<div id='header'>\n"
             "       <div id='business'> Family Trees </div>\n"
-            "       <div id='family'> famille : %s </div>\n"
+            "       <div id='family'> Famille %s </div>\n"
             "</div>\n"
-            "<img src=../tree2.png>\n"
             "<div id='global'>\n"
             "        <h1>Détail sur %s %s</h1>\n"
-            "        <div id='person'></div>\n"
+            "        <div id='person' style=\"background-image:url(%s)\"></div>\n"
             "        <div id='info'>\n"
             "        <ul>\n"
             "            <li>Prénom : %s</li>\n"
@@ -186,7 +204,7 @@ void create_info_html(const char *output_filename, Person *p) {
             "            <li>Anniversaire : %02d/%02d/%04d</li>\n"
             "            <li>Lieu de naissance : %s</li>\n",
             p->lastname,
-            p->firstname, p->lastname, p->firstname, p->lastname,
+            p->firstname, p->lastname, imgName(p), p->firstname, p->lastname,
             p->birthday, p->birthmonth, p->birthyear, p->region_naissance
     );
 
@@ -227,6 +245,8 @@ void create_info_html(const char *output_filename, Person *p) {
             "        </ul>\n"
             "            </div>\n"
             "           </div>\n"
+            "         <img src=\"../tree2.png\" class=\"arbre\" alt=\"Arbre Généalogique\">\n"
+            "         <div class=\"terre\"></div>"
             "    </body>\n"
             "</html>"
     );

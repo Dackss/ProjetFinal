@@ -26,6 +26,7 @@ typedef struct person {
     struct person **children; // Tableau de pointeurs vers les enfants
     int num_children; // Nombre d'enfants
     int max_children; // Nombre maximal d'enfants
+    int gender;
 } Person;
 
 Person * initPerson(char *csvline);
