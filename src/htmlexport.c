@@ -27,6 +27,7 @@ char* linkHtml(Person *person, int who) {
 //Load images
 char* imgName(Person *person) {
     char *img = (char*) malloc(150 * sizeof(char));
+//Associate an image based on gender
     if (person->gender == 1) {
         sprintf(img, "../img-homme.jpg");
     } if (person->gender == 2) {
@@ -193,6 +194,7 @@ void export_html(Population *population) {
         return;
     }
 
+    //html code to modify the tamplates
     fprintf(output_file,
             "<!DOCTYPE html>\n"
             "<html lang=\"fr\">\n"
