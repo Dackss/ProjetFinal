@@ -75,7 +75,7 @@ get_ancestors() {
 # This function calls the ProjetFinal executable with the export_html command and the name of the output file.
 export_html() {
     rm -f ../result/info/*.html
-        rm -f ../result/info/*.html
+    rm -f ../result/info/*.html
     ../cmake-build-debug/ProjetFinal export_html
     pause
 }

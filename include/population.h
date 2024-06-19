@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CAPACITY 10001
+#define CAPACITY 201
 
 //struct for population
 typedef struct{

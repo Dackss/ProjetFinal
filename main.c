@@ -38,7 +38,7 @@ void link_population_once() {
  * If the correct number of arguments is provided, it executes the corresponding function.
  * If the command is unknown or arguments are missing, it prints an error message and returns 1.
  */
-int main(int argc, char *argv[]) {
+/*int main(int argc, char *argv[]) {
     // Ensure the population data is loaded
     link_population_once();
 
@@ -123,10 +123,10 @@ int main(int argc, char *argv[]) {
     }
     free(global_population.persons);
     return 0;
-}
+}*/
 
-/*int main() {
+int main() {
     link_population_once();
     export_html(&global_population);
     free(global_population.persons);
-}*/
+}

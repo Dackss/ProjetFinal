@@ -50,7 +50,7 @@ void export_html(Population *population) {
             sprintf(filename, "../result/trees/tree_person_%d.html", population->persons[i].id);
             update_html("../result/template_trees.html", filename, &population->persons[i]);
             sprintf(filename, "../result/info/info_person_%d.html", population->persons[i].id);
-            free_person(&population->persons[i]);
+            create_info_html(filename, &population->persons[i]);
         }
     }
 }
