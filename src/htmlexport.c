@@ -4,6 +4,7 @@
 #include "htmlexport.h"
 #include "advanced.h"
 
+//Link C into html
 char* linkHtml(Person *person, int who) {
     char *link = (char*) malloc(255 * sizeof(char));
     const char *imgSrc;
@@ -23,6 +24,7 @@ char* linkHtml(Person *person, int who) {
     return link;
 }
 
+//Load images
 char* imgName(Person *person) {
     char *img = (char*) malloc(150 * sizeof(char));
     if (person->gender == 1) {
@@ -35,14 +37,17 @@ char* imgName(Person *person) {
     return img;
 }
 
+// get lastname
 char* getFamilyName(Person *p) {
     return p->lastname;
 }
 
+//Free up memory space
 void free_person(Person *p) {
     free(p->children);
 }
 
+//Export tamplates for html
 void export_html(Population *population) {
     for (int i = 0; i < population->size; i++) {
         if (population->persons[i].id != 0) {
@@ -55,7 +60,8 @@ void export_html(Population *population) {
     }
 }
 
-void update_html(const char *template_file, const char *output_filename, Person *p) {
+//Updating the html based on populations
+    void update_html(const char *template_file, const char *output_filename, Person *p) {
     FILE *output_file = fopen(output_filename, "w");
     FILE *template = fopen(template_file, "r");
     if (!output_file) {
@@ -65,7 +71,7 @@ void update_html(const char *template_file, const char *output_filename, Person 
     int numSiblings;
     Person **siblings = getSiblings(p, &numSiblings);
 
-    char *personLink = linkHtml(p, 1); // 0 pour l'inconnu ou la personne elle-même
+    char *personLink = linkHtml(p, 1); // 0 for the unknown person or the person themselves
     char line[1000];
     while (fgets(line, sizeof(line), template)) {
         if (strstr(line, "<!-- Famille -->")) {
@@ -79,12 +85,12 @@ void update_html(const char *template_file, const char *output_filename, Person 
                     "                <ul>\n"
                     "                    <li>\n"
                     "                        <div class=\"children\">\n"
-                    "                           %s\n",  // Ajoute en dessous les frères et soeurs
+                    "                           %s\n",  // Add the brothers and sisters below
                     personLink
             );
             for (int j = 0; j < numSiblings; j++) {
                 Person *sibling = siblings[j];
-                char *siblingLink = linkHtml(sibling, 1); // 0 pour les frères et soeurs
+                char *siblingLink = linkHtml(sibling, 1); // 0 for brothers and sisters
                 fprintf(output_file, "                           %s\n", siblingLink);
                 free(siblingLink);
             }
@@ -178,7 +184,8 @@ void update_html(const char *template_file, const char *output_filename, Person 
     fclose(output_file);
 }
 
-void create_info_html(const char *output_filename, Person *p) {
+//Updating tamplate 2 with a person's specific information
+    void create_info_html(const char *output_filename, Person *p) {
     FILE *output_file = fopen(output_filename, "w");
 
     if (!output_file) {
